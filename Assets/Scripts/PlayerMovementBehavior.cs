@@ -10,7 +10,8 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     //Base player movement
     public float speed;
-
+    //Gravity
+    public float fallSpeed;
     //Determines how high the player can jump
     public float jumpForce;
     //right is false
@@ -47,7 +48,7 @@ public class PlayerMovementBehavior : MonoBehaviour
         }
 
         //How fast the player moves
-        rigi.velocity = new Vector3(moveInput * speed, rigi.velocity.y -.3f, 0);
+        rigi.velocity = new Vector3(moveInput * speed, rigi.velocity.y -fallSpeed, 0);
     }
 
     //Old Jumping System if we decide to use Diagonal platforms
@@ -73,6 +74,7 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     void Update()
     {
+        //get rid of punch box
         if(punchBox.activeSelf == true && stopwatch.ElapsedMilliseconds > 100)
         {
             punchBox.SetActive(false);

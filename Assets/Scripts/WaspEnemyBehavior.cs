@@ -74,6 +74,17 @@ public class WaspEnemyBehavior : MonoBehaviour
 
     private void die()
     {
-
+        gameObject.SetActive(false);
     }
+
+ 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PunchBox"))
+        {
+            Health--;
+            rb.AddForce(-rb.velocity * 10, ForceMode.Impulse);
+        }
+    }
+
 }
