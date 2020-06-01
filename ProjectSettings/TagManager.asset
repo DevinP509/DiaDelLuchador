@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - PunchBox
+  - Enemy
   layers:
   - Default
   - TransparentFX
