@@ -20,6 +20,10 @@ public class PlayerMovementBehavior : MonoBehaviour
     //Determines what ground is
     private bool isGrounded;
 
+    public int lives;
+
+    public Stopwatch invinsiblityTimer = new Stopwatch();
+
     public GameObject punchBox;
 
     Stopwatch stopwatch = new Stopwatch();
@@ -29,7 +33,7 @@ public class PlayerMovementBehavior : MonoBehaviour
         //Get the Rigibody of the player
         rigi = GetComponent<Rigidbody>();
         stopwatch.Start();
-        
+        invinsiblityTimer.Start();
     }
 
     void FixedUpdate()
@@ -55,7 +59,7 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     //void OnCollisionEnter(Collision collision)
     //{
-        
+
     //    switch (collision.gameObject.tag)
     //    {
     //        //If the gameObject is ground set isGrounded to true
@@ -71,6 +75,18 @@ public class PlayerMovementBehavior : MonoBehaviour
     //        isGrounded = false;
     //    }
     //}
+    private void OnTriggerEnter(Collider other)
+    {
+        // UnityEngine.Debug.Log("this far");
+        if (other.gameObject.CompareTag("Enemy") && invinsiblityTimer.ElapsedMilliseconds > 100)
+        {
+            UnityEngine.Debug.Log("this far");
+            lives--;
+
+            invinsiblityTimer.Restart();
+        }
+    }
+
 
     void Update()
     {
