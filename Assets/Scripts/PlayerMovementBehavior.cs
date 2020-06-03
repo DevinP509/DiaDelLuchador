@@ -1,5 +1,9 @@
-﻿using UnityEngine;
+
+using UnityEngine;
 using System.Diagnostics;
+using System.Collections;
+using System.Collections.Generic;
+
 public class PlayerMovementBehavior : MonoBehaviour
 {
     //Refrences to the rigidbody
@@ -10,6 +14,7 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     //Base player movement
     public float speed;
+
     //Gravity
     public float fallSpeed;
     //Determines how high the player can jump
@@ -28,18 +33,32 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     Stopwatch stopwatch = new Stopwatch();
     
+=======
+
+    //Determines how high the player can jump
+    public float jumpForce;
+
+    //Determines what ground is
+    private bool isGrounded;
+
+
+
     void Start()
     {
         //Get the Rigibody of the player
         rigi = GetComponent<Rigidbody>();
+
         stopwatch.Start();
         invinsiblityTimer.Start();
+
+
     }
 
     void FixedUpdate()
     {
         //moveInput is equel to the Horizontal control
         moveInput = Input.GetAxisRaw("Horizontal");
+
         if(moveInput >0)
         {
             facing = false;
@@ -97,16 +116,41 @@ public class PlayerMovementBehavior : MonoBehaviour
         }
         //If the player is on ground and space key is pressed
         if (rigi.velocity.y == 0 && Input.GetKeyDown(KeyCode.Space))
+
+        //How fast the player moves
+        rigi.velocity = new Vector3(moveInput * speed, rigi.velocity.y, 0);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            //If the gameObject is ground set isGrounded to true
+            case "Ground":
+                isGrounded = true;
+                ; break;
+            default:
+                break;
+        }
+    }
+
+    void Update()
+    {
+        //If the player is on ground and space key is pressed
+        if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
+
         {
             //Player jumps
             rigi.velocity = Vector3.up * jumpForce;
             isGrounded = false;
         }
+
         if(Input.GetKeyDown(KeyCode.R) && stopwatch.ElapsedMilliseconds > 200)
         {
             punchBox.SetActive(true);
             stopwatch.Restart();
         }
+
 
     }
 }
