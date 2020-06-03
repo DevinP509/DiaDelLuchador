@@ -17,14 +17,11 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     //Gravity
     public float fallSpeed;
-    //Determines how high the player can jump
-    public float jumpForce;
+
     //right is false
     //left is truth
     private bool facing= false;
-    //Determines what ground is
-    private bool isGrounded;
-
+  
     public int lives;
 
     public Stopwatch invinsiblityTimer = new Stopwatch();
@@ -33,13 +30,13 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     Stopwatch stopwatch = new Stopwatch();
     
-=======
+
 
     //Determines how high the player can jump
     public float jumpForce;
 
     //Determines what ground is
-    private bool isGrounded;
+    //private bool isGrounded;
 
 
 
@@ -56,22 +53,8 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
-        //moveInput is equel to the Horizontal control
-        moveInput = Input.GetAxisRaw("Horizontal");
-
-        if(moveInput >0)
-        {
-            facing = false;
-            punchBox.transform.localPosition = new Vector3(1,0,0);
-        }
-        else if (moveInput < 0)
-        {
-            facing = true;
-            punchBox.transform.localPosition = new Vector3(-1, 0, 0);
-        }
-
-        //How fast the player moves
-        rigi.velocity = new Vector3(moveInput * speed, rigi.velocity.y -fallSpeed, 0);
+        movmentManager();
+        punchManager();
     }
 
     //Old Jumping System if we decide to use Diagonal platforms
@@ -121,36 +104,57 @@ public class PlayerMovementBehavior : MonoBehaviour
         rigi.velocity = new Vector3(moveInput * speed, rigi.velocity.y, 0);
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        switch (collision.gameObject.tag)
-        {
-            //If the gameObject is ground set isGrounded to true
-            case "Ground":
-                isGrounded = true;
-                ; break;
-            default:
-                break;
-        }
-    }
+    //void OnCollisionEnter(Collision collision)
+    //{
+    //    switch (collision.gameObject.tag)
+    //    {
+    //        //If the gameObject is ground set isGrounded to true
+    //        case "Ground":
+    //            isGrounded = true;
+    //            ; break;
+    //        default:
+    //            break;
+    //    }
+    //}
 
-    void Update()
+    void movmentManager()
     {
+        //moveInput is equel to the Horizontal control
+        moveInput = Input.GetAxisRaw("Horizontal");
+
+        if (moveInput > 0)
+        {
+            facing = false;
+            punchBox.transform.localPosition = new Vector3(1, 0, 0);
+        }
+        else if (moveInput < 0)
+        {
+            facing = true;
+            punchBox.transform.localPosition = new Vector3(-1, 0, 0);
+        }
         //If the player is on ground and space key is pressed
-        if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
-
+        if (rigi.velocity.y == 0 && Input.GetKeyDown(KeyCode.Space))
         {
-            //Player jumps
-            rigi.velocity = Vector3.up * jumpForce;
-            isGrounded = false;
+            rigi.velocity = new Vector3(rigi.velocity.x, 1 * jumpForce, 0);
         }
 
-        if(Input.GetKeyDown(KeyCode.R) && stopwatch.ElapsedMilliseconds > 200)
+        
+        //How fast the player moves
+        rigi.velocity = new Vector3(moveInput * speed, rigi.velocity.y- fallSpeed , 0);
+    }
+    void punchManager()
+    {
+        //check if player wants to punch
+        if (Input.GetKeyDown(KeyCode.R) && stopwatch.ElapsedMilliseconds > 200)
         {
             punchBox.SetActive(true);
             stopwatch.Restart();
         }
-
+        //get rid of punch box
+        if (punchBox.activeSelf == true && stopwatch.ElapsedMilliseconds > 100)
+        {
+            punchBox.SetActive(false);
+        }
 
     }
 }
