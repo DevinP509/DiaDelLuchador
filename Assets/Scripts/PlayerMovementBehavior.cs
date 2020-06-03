@@ -21,8 +21,10 @@ public class PlayerMovementBehavior : MonoBehaviour
     //right is false
     //left is truth
     private bool facing= false;
-  
-    public int lives;
+
+    //Get refrence to the valueKeepingBehavior
+    [SerializeField]
+    private ValueKeepingBehavior liveValue;
 
     public Stopwatch invinsiblityTimer = new Stopwatch();
 
@@ -77,17 +79,28 @@ public class PlayerMovementBehavior : MonoBehaviour
     //        isGrounded = false;
     //    }
     //}
+
     private void OnTriggerEnter(Collider other)
     {
         // UnityEngine.Debug.Log("this far");
         if (other.gameObject.CompareTag("Enemy") && invinsiblityTimer.ElapsedMilliseconds > 100)
         {
-            UnityEngine.Debug.Log("this far");
-            lives--;
+            //UnityEngine.Debug.Log("this far");
+            liveValue.lives--;
 
             invinsiblityTimer.Restart();
         }
     }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    //If the tag is the player
+    //    if(other.CompareTag("Player"))
+    //    {
+    //        //Decrease the players life count
+    //        liveValue.lives--;
+    //    }
+    //}
 
 
     void Update()

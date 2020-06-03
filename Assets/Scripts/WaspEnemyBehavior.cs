@@ -13,6 +13,10 @@ public class WaspEnemyBehavior : MonoBehaviour
     private Renderer rendererer;
     private BoxCollider collider;
 
+    [SerializeField]
+    //Refrence to the ValueKeepingBehavior
+    private ValueKeepingBehavior scoreKeep;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -75,6 +79,9 @@ public class WaspEnemyBehavior : MonoBehaviour
     private void die()
     {
         gameObject.SetActive(false);
+
+        //increase the players score
+        scoreKeep.score++;
     }
 
  
