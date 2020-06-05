@@ -22,6 +22,7 @@ public class PlayerMovementBehavior : MonoBehaviour
     //left is truth
     private bool facing= false;
 
+
     //Get refrence to the valueKeepingBehavior
     [SerializeField]
     private ValueKeepingBehavior liveValue;
@@ -31,22 +32,22 @@ public class PlayerMovementBehavior : MonoBehaviour
     public GameObject punchBox;
 
     Stopwatch stopwatch = new Stopwatch();
-    
 
+    public LayerMask GroundLayers;
 
     //Determines how high the player can jump
     public float jumpForce;
 
     //Determines what ground is
     //private bool isGrounded;
-
+    CapsuleCollider coli;
 
 
     void Start()
     {
         //Get the Rigibody of the player
         rigi = GetComponent<Rigidbody>();
-
+        coli = GetComponent<CapsuleCollider>();
         stopwatch.Start();
         invinsiblityTimer.Start();
 
@@ -57,28 +58,9 @@ public class PlayerMovementBehavior : MonoBehaviour
     {
         movmentManager();
         punchManager();
+        
+        
     }
-
-    //Old Jumping System if we decide to use Diagonal platforms
-
-    //void OnCollisionEnter(Collision collision)
-    //{
-
-    //    switch (collision.gameObject.tag)
-    //    {
-    //        //If the gameObject is ground set isGrounded to true
-    //        case "Ground":
-    //            isGrounded = true;
-    //             break;
-    //        default:
-    //            isGrounded = false;
-    //            break;
-    //    }
-    //    if (!collision.gameObject)
-    //    {
-    //        isGrounded = false;
-    //    }
-    //}
 
     private void OnTriggerEnter(Collider other)
     {
@@ -91,45 +73,6 @@ public class PlayerMovementBehavior : MonoBehaviour
             invinsiblityTimer.Restart();
         }
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    //If the tag is the player
-    //    if(other.CompareTag("Player"))
-    //    {
-    //        //Decrease the players life count
-    //        liveValue.lives--;
-    //    }
-    //}
-
-
-    void Update()
-    {
-        //get rid of punch box
-        if(punchBox.activeSelf == true && stopwatch.ElapsedMilliseconds > 100)
-        {
-            punchBox.SetActive(false);
-        }
-        //If the player is on ground and space key is pressed
-        if (rigi.velocity.y == 0 && Input.GetKeyDown(KeyCode.Space))
-
-        //How fast the player moves
-        rigi.velocity = new Vector3(moveInput * speed, rigi.velocity.y, 0);
-    }
-
-    //void OnCollisionEnter(Collision collision)
-    //{
-    //    switch (collision.gameObject.tag)
-    //    {
-    //        //If the gameObject is ground set isGrounded to true
-    //        case "Ground":
-    //            isGrounded = true;
-    //            ; break;
-    //        default:
-    //            break;
-    //    }
-    //}
-
     void movmentManager()
     {
         //moveInput is equel to the Horizontal control
@@ -146,19 +89,22 @@ public class PlayerMovementBehavior : MonoBehaviour
             punchBox.transform.localPosition = new Vector3(-1, 0, 0);
         }
         //If the player is on ground and space key is pressed
-        if (rigi.velocity.y == 0 && Input.GetKeyDown(KeyCode.Space))
+    
+        if (IsGrounded() == true && Input.GetKey(KeyCode.Space))
         {
-            rigi.velocity = new Vector3(rigi.velocity.x, 1 * jumpForce, 0);
+            rigi.AddForce(0,jumpForce,0,ForceMode.Impulse);
+           
+           
         }
 
         
         //How fast the player moves
-        rigi.velocity = new Vector3(moveInput * speed, rigi.velocity.y- fallSpeed , 0);
+        rigi.velocity = new Vector3(moveInput * speed, rigi.velocity.y - fallSpeed , 0);
     }
     void punchManager()
     {
         //check if player wants to punch
-        if (Input.GetKeyDown(KeyCode.R) && stopwatch.ElapsedMilliseconds > 200)
+        if (Input.GetKey(KeyCode.R) && stopwatch.ElapsedMilliseconds > 200)
         {
             punchBox.SetActive(true);
             stopwatch.Restart();
@@ -169,5 +115,12 @@ public class PlayerMovementBehavior : MonoBehaviour
             punchBox.SetActive(false);
         }
 
+    }
+    //checks if the player is currently grounded
+    private bool IsGrounded()
+    {
+       
+        //checks if the player is on the ground by calculating if the ground is colliding with the bottom of the capsule
+        return Physics.CheckCapsule(coli.bounds.center, new Vector3(coli.bounds.center.x, coli.bounds.min.y,coli.bounds.center.z),coli.radius * .8f,GroundLayers);        
     }
 }

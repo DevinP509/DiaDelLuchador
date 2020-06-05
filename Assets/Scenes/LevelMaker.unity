@@ -223,7 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 100733334}
   - component: {fileID: 100733333}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ValueKeeper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &219113033
 GameObject:
@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 267443991}
   - component: {fileID: 267443995}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: LeftWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -380,7 +380,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 267443990}
-  m_Material: {fileID: 13400000, guid: d42ab1ad48a06fc419ebff46d079fb66, type: 2}
+  m_Material: {fileID: 13400000, guid: e05fabaaac5d9584cb4f1978dd672bc5, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -440,12 +440,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 267443990}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10, y: 15.5, z: 50}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -19.526447, y: 59.74378, z: -67.3873}
   m_LocalScale: {x: 1, y: 36, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 389937070}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &267443995
 Rigidbody:
@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 320130983}
   - component: {fileID: 320130982}
   - component: {fileID: 320130981}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: PunchBox
   m_Icon: {fileID: 0}
@@ -556,6 +556,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 320130979}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &389937069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 389937070}
+  m_Layer: 0
+  m_Name: Walls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &389937070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389937069}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.526448, y: -44.24378, z: 117.3873}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1924893837}
+  - {fileID: 267443994}
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &601271245
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,7 +873,7 @@ RectTransform:
   - {fileID: 1340883241}
   - {fileID: 601271246}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -969,7 +1001,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962115909}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.49999976, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 21, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1192520589}
@@ -1066,7 +1098,7 @@ Transform:
   - {fileID: 1939375528}
   - {fileID: 962115910}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1256025431
 GameObject:
@@ -1187,7 +1219,7 @@ GameObject:
   - component: {fileID: 1481714058}
   - component: {fileID: 1481714057}
   - component: {fileID: 1481714056}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1240,7 +1272,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1554146171
 GameObject:
@@ -1256,7 +1288,7 @@ GameObject:
   - component: {fileID: 1554146173}
   - component: {fileID: 1554146177}
   - component: {fileID: 1554146172}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CazadorEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1350,11 +1382,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554146171}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.2, y: 3.38, z: 50.05}
+  m_LocalPosition: {x: 5.6, y: 3.38, z: 50.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1554146177
 Rigidbody:
@@ -1386,7 +1418,7 @@ GameObject:
   - component: {fileID: 1584443194}
   - component: {fileID: 1584443193}
   - component: {fileID: 1584443198}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 'Quetzalcuatol '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1482,7 +1514,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1.4831}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1584443198
 Rigidbody:
@@ -1513,9 +1545,9 @@ GameObject:
   - component: {fileID: 1730701660}
   - component: {fileID: 1730701659}
   - component: {fileID: 1730701664}
-  - component: {fileID: 1730701665}
   - component: {fileID: 1730701663}
-  m_Layer: 0
+  - component: {fileID: 1730701665}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1614,7 +1646,10 @@ MonoBehaviour:
   fallSpeed: 0.6
   liveValue: {fileID: 100733333}
   punchBox: {fileID: 320130979}
-  jumpForce: 20
+  GroundLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  jumpForce: 10
 --- !u!54 &1730701664
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1658,7 +1693,7 @@ GameObject:
   - component: {fileID: 1924893834}
   - component: {fileID: 1924893838}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: RightWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1671,7 +1706,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1924893833}
-  m_Material: {fileID: 13400000, guid: d42ab1ad48a06fc419ebff46d079fb66, type: 2}
+  m_Material: {fileID: 13400000, guid: e05fabaaac5d9584cb4f1978dd672bc5, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1731,12 +1766,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1924893833}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 15.5, z: 50}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.47355175, y: 59.74378, z: -67.3873}
   m_LocalScale: {x: 1, y: 36, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 389937070}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1924893838
 Rigidbody:
