@@ -12,7 +12,7 @@ public class WaspEnemyBehavior : MonoBehaviour
     public Rigidbody rb;
     private Renderer rendererer;
     private BoxCollider collider;
-
+    public ParticleSystem bloodSpray;
     [SerializeField]
     //Refrence to the ValueKeepingBehavior
     private ValueKeepingBehavior scoreKeep;
@@ -78,10 +78,12 @@ public class WaspEnemyBehavior : MonoBehaviour
 
     private void die()
     {
+        bloodSpray.Play();
+        scoreKeep.score++;
         gameObject.SetActive(false);
 
         //increase the players score
-        scoreKeep.score++;
+        
     }
 
  
@@ -90,6 +92,7 @@ public class WaspEnemyBehavior : MonoBehaviour
         if (other.gameObject.CompareTag("PunchBox"))
         {
             Health--;
+            bloodSpray.Play();
             rb.AddForce(-rb.velocity * 10, ForceMode.Impulse);
         }
     }

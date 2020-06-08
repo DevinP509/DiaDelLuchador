@@ -17,15 +17,18 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     //Gravity
     public float fallSpeed;
+    public float airControl =1;
+    private float airControlHold;
 
     //right is false
     //left is truth
-    private bool facing= false;
+    [HideInInspector]
+    public bool facing= false;
 
 
     //Get refrence to the valueKeepingBehavior
     [SerializeField]
-    private ValueKeepingBehavior liveValue;
+    public ValueKeepingBehavior liveValue;
 
     public Stopwatch invinsiblityTimer = new Stopwatch();
 
@@ -81,12 +84,14 @@ public class PlayerMovementBehavior : MonoBehaviour
         if (moveInput > 0)
         {
             facing = false;
-            punchBox.transform.localPosition = new Vector3(1, 0, 0);
+            //punchBox.transform.localPosition = new Vector3(1, 0, 0);
+            transform.localRotation= new Quaternion(0,0,0,0) ;
         }
         else if (moveInput < 0)
         {
             facing = true;
-            punchBox.transform.localPosition = new Vector3(-1, 0, 0);
+            //punchBox.transform.localPosition = new Vector3(-1, 0, 0);
+            transform.localRotation = new Quaternion(0, 180, 0, 0);
         }
         //If the player is on ground and space key is pressed
     
@@ -97,23 +102,31 @@ public class PlayerMovementBehavior : MonoBehaviour
            
         }
 
+        if(IsGrounded() == true)
+        {
+            airControlHold = 1;
+        }
+        else
+        {
+            airControlHold = airControl;
+        }
         
         //How fast the player moves
-        rigi.velocity = new Vector3(moveInput * speed, rigi.velocity.y - fallSpeed , 0);
+        rigi.velocity = new Vector3(moveInput * speed * airControlHold, rigi.velocity.y - fallSpeed , 0);
     }
     void punchManager()
     {
-        //check if player wants to punch
-        if (Input.GetKey(KeyCode.R) && stopwatch.ElapsedMilliseconds > 200)
-        {
-            punchBox.SetActive(true);
-            stopwatch.Restart();
-        }
-        //get rid of punch box
-        if (punchBox.activeSelf == true && stopwatch.ElapsedMilliseconds > 100)
-        {
-            punchBox.SetActive(false);
-        }
+        ////check if player wants to punch
+        //if (Input.GetKey(KeyCode.R) && stopwatch.ElapsedMilliseconds > 200)
+        //{
+        //    punchBox.SetActive(true);
+        //    stopwatch.Restart();
+        //}
+        ////get rid of punch box
+        //if (punchBox.activeSelf == true && stopwatch.ElapsedMilliseconds > 100)
+        //{
+        //    punchBox.SetActive(false);
+        //}
 
     }
     //checks if the player is currently grounded
