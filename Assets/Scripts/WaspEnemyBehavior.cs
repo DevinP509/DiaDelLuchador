@@ -23,6 +23,7 @@ public class WaspEnemyBehavior : MonoBehaviour
         GameCamera = UnityEngine.Camera.main;
         rendererer = GetComponent<Renderer>();
         collider = GetComponent<BoxCollider>();
+        bloodSpray.Stop();
     }
 
     // Update is called once per frame

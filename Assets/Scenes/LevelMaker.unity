@@ -1596,7 +1596,7 @@ GameObject:
   - component: {fileID: 1509495236}
   - component: {fileID: 1509495238}
   - component: {fileID: 1509495237}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: CazadorBlood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6713,7 +6713,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   fallSpeed: 0.6
-  airControl: 0.3
+  airControl: 0.1
   facing: 0
   liveValue: {fileID: 100733333}
   punchBox: {fileID: 320130979}
@@ -6763,7 +6763,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   punchBox: {fileID: 320130979}
-  IsCharging: 0
   chargeTime: 0
   chargebar: {fileID: 871280485}
 --- !u!1 &1924893833

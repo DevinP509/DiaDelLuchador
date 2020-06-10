@@ -9,10 +9,11 @@ public class AttackBehavior : MonoBehaviour
     private Stopwatch ChargeTimer = new Stopwatch();
     private Stopwatch PunchMoveOvertime = new Stopwatch();
     public GameObject punchBox;
+    private bool IsCharging = false;
     private float CurrentDamage;
     [SerializeField]
     
-    bool IsCharging = false;
+    
     public float chargeTime;
     
     public GameObject chargebar;
@@ -38,10 +39,16 @@ public class AttackBehavior : MonoBehaviour
     }
     void punch()
     {
+
+
         if(IsCharging == true)
         {
             chargeTime = ChargeTimer.ElapsedMilliseconds / 1000;
-            chargebar.transform.localScale = new Vector3(.5f, chargeTime, 1);
+            if(chargeTime >= 5)
+            {
+                chargeTime = 5;
+            }
+                chargebar.transform.localScale = new Vector3(.5f, chargeTime, 1);
         }
         //check if player wants to punch
         if (Input.GetAxis("Fire1") > 0 && PunchCoolDown.ElapsedMilliseconds > 1200)
@@ -83,6 +90,8 @@ public class AttackBehavior : MonoBehaviour
             goingLeft = true;
             //rb.AddForce(new Vector3(-300 * chargeTime, 0, 0),ForceMode.Impulse);            
         }
+
+
         PunchMoveOvertime.Restart();
 
         IsCharging = false;
