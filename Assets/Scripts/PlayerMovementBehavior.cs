@@ -19,22 +19,25 @@ public class PlayerMovementBehavior : MonoBehaviour
     public float fallSpeed;
     public float airControl =1;
     private float airControlHold;
-
+    private Stopwatch stopwatch = new Stopwatch();
+    private Stopwatch JumpCoolDown = new Stopwatch();
+    private bool jumped;
     //right is false
     //left is truth
     [HideInInspector]
     public bool facing= false;
+    public Stopwatch invinsiblityTimer = new Stopwatch();
 
 
     //Get refrence to the valueKeepingBehavior
     [SerializeField]
     public ValueKeepingBehavior liveValue;
 
-    public Stopwatch invinsiblityTimer = new Stopwatch();
+    
 
     public GameObject punchBox;
 
-    Stopwatch stopwatch = new Stopwatch();
+
 
     public LayerMask GroundLayers;
 
@@ -53,14 +56,14 @@ public class PlayerMovementBehavior : MonoBehaviour
         coli = GetComponent<CapsuleCollider>();
         stopwatch.Start();
         invinsiblityTimer.Start();
-
+        JumpCoolDown.Start();
 
     }
 
     void FixedUpdate()
     {
         movmentManager();
-        punchManager();
+        VelocityCorrection();
         
         
     }
@@ -68,7 +71,7 @@ public class PlayerMovementBehavior : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // UnityEngine.Debug.Log("this far");
-        if (other.gameObject.CompareTag("Enemy") && invinsiblityTimer.ElapsedMilliseconds > 100)
+        if (other.gameObject.CompareTag("Enemy") && invinsiblityTimer.ElapsedMilliseconds > 200)
         {
             //UnityEngine.Debug.Log("this far");
             liveValue.lives--;
@@ -78,6 +81,7 @@ public class PlayerMovementBehavior : MonoBehaviour
     }
     void movmentManager()
     {
+      
         //moveInput is equel to the Horizontal control
         moveInput = Input.GetAxisRaw("Horizontal");
 
@@ -95,9 +99,10 @@ public class PlayerMovementBehavior : MonoBehaviour
         }
         //If the player is on ground and space key is pressed
     
-        if (IsGrounded() == true && Input.GetKey(KeyCode.Space))
+        if (IsGrounded() == true && Input.GetKey(KeyCode.Space)&& JumpCoolDown.ElapsedMilliseconds > 100)
         {
             rigi.AddForce(0,jumpForce,0,ForceMode.Impulse);
+            JumpCoolDown.Restart();
            
            
         }
@@ -114,26 +119,18 @@ public class PlayerMovementBehavior : MonoBehaviour
         //How fast the player moves
         rigi.velocity = new Vector3(moveInput * speed * airControlHold, rigi.velocity.y - fallSpeed , 0);
     }
-    void punchManager()
-    {
-        ////check if player wants to punch
-        //if (Input.GetKey(KeyCode.R) && stopwatch.ElapsedMilliseconds > 200)
-        //{
-        //    punchBox.SetActive(true);
-        //    stopwatch.Restart();
-        //}
-        ////get rid of punch box
-        //if (punchBox.activeSelf == true && stopwatch.ElapsedMilliseconds > 100)
-        //{
-        //    punchBox.SetActive(false);
-        //}
-
-    }
     //checks if the player is currently grounded
     private bool IsGrounded()
     {
        
         //checks if the player is on the ground by calculating if the ground is colliding with the bottom of the capsule
-        return Physics.CheckCapsule(coli.bounds.center, new Vector3(coli.bounds.center.x, coli.bounds.min.y,coli.bounds.center.z),coli.radius * .8f,GroundLayers);        
+        return Physics.CheckCapsule(coli.bounds.center, new Vector3(coli.bounds.center.x, coli.bounds.min.y,coli.bounds.center.z),coli.radius * .5f,GroundLayers);        
+    }
+    private void VelocityCorrection()
+    {
+        if(rigi.velocity.y > 25)
+        {
+            rigi.velocity = new Vector3(rigi.velocity.x,25,rigi.velocity.z);
+        }
     }
 }
