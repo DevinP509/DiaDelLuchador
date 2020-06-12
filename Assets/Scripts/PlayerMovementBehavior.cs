@@ -22,6 +22,7 @@ public class PlayerMovementBehavior : MonoBehaviour
     private Stopwatch stopwatch = new Stopwatch();
     private Stopwatch JumpCoolDown = new Stopwatch();
     private bool jumped;
+    public ParticleSystem bloodSpray;
     //right is false
     //left is truth
     [HideInInspector]
@@ -57,7 +58,7 @@ public class PlayerMovementBehavior : MonoBehaviour
         stopwatch.Start();
         invinsiblityTimer.Start();
         JumpCoolDown.Start();
-
+        
     }
 
     void FixedUpdate()
@@ -65,7 +66,10 @@ public class PlayerMovementBehavior : MonoBehaviour
         movmentManager();
         VelocityCorrection();
         
-        
+        if(liveValue.lives <= 0)
+        {
+            die();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -132,5 +136,10 @@ public class PlayerMovementBehavior : MonoBehaviour
         {
             rigi.velocity = new Vector3(rigi.velocity.x,25,rigi.velocity.z);
         }
+    }
+    public void die()
+    {
+        bloodSpray.gameObject.SetActive(true);
+        bloodSpray.Play();
     }
 }

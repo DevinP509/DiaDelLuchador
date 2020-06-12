@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
-
+using System;
 
 public class PlatformSpawnerBehavior : MonoBehaviour
 {
@@ -10,7 +10,8 @@ public class PlatformSpawnerBehavior : MonoBehaviour
     public float SpawnTime;
     public float platformFallRate;
     Stopwatch stopwatch = new Stopwatch();
-     UnityEngine.Random random = new Random();
+     System.Random random = new System.Random();
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,7 @@ public class PlatformSpawnerBehavior : MonoBehaviour
     {
         if(stopwatch.ElapsedMilliseconds /1000 >= SpawnTime)
         {
-            GameObject platform = PlatformPreFabs[UnityEngine.Random.Range(0, PlatformPreFabs.Count - 1)];
+            GameObject platform = PlatformPreFabs[random.Next(0, PlatformPreFabs.Count - 1)];
             platform.GetComponent<PlatformFallingBehavior>().fallSpeed = platformFallRate;
             Instantiate(platform, transform);
             
