@@ -11,6 +11,7 @@ public class AttackBehavior : MonoBehaviour
     public GameObject punchBox;
     private bool IsCharging = false;
     private float CurrentDamage;
+    private float speedStorage;
     [SerializeField]
     
     
@@ -26,9 +27,11 @@ public class AttackBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         rb = GetComponent<Rigidbody>();
         MovmentScript = GetComponent<PlayerMovementBehavior>();
         PunchCoolDown.Start();
+        speedStorage = MovmentScript.speed;
     }
 
     // Update is called once per frame
@@ -40,33 +43,43 @@ public class AttackBehavior : MonoBehaviour
     void punch()
     {
 
-
+        //if a attack is charging lower speed and start filling
         if(IsCharging == true)
         {
+            //set the players speed down while charging a punch
+            MovmentScript.speed = speedStorage/4;
+            //store charge time in seconds
             chargeTime = ChargeTimer.ElapsedMilliseconds / 1000;
+            //cap the charge time
             if(chargeTime >= 5)
             {
                 chargeTime = 5;
             }
+            //expand the bar depending on charge time
                 chargebar.transform.localScale = new Vector3(.5f, chargeTime, 1);
         }
-        //check if player wants to punch
-        if (Input.GetAxis("Fire1") > 0 && PunchCoolDown.ElapsedMilliseconds > 1200)
+
+        //check if player wants to punch and if the punch box is currently active
+        if (Input.GetAxis("Fire1") > 0  && punchBox.activeSelf == false)
         {       
+            //start charging if the the player isnt already charging 
             if(IsCharging == false)
             {
                 startCharging(); 
 
-            }
-                 
+            }                 
         }        
+        //if the player releases the charge button then release the charge
         else if(IsCharging == true &&  Input.GetAxis("Fire1") == 0)
         {
             ReleaseCharge();
         }
-        //get rid of punch box
-        if (punchBox.activeSelf == true && PunchCoolDown.ElapsedMilliseconds > 2000)
+
+        //get rid of punch box after a attack depending on how long it was charged
+        if (punchBox.activeSelf == true && PunchCoolDown.ElapsedMilliseconds > 200*chargeTime)
         {
+            //set movment back to normal after punch
+            MovmentScript.speed = speedStorage;
             punchBox.SetActive(false);
         }
     }
@@ -82,11 +95,13 @@ public class AttackBehavior : MonoBehaviour
     {
         if(MovmentScript.facing == false)
         {
+            
             goingRight = true;
             //rb.AddForce(new Vector3(300*chargeTime,0,0), ForceMode.Impulse);            
         }
         else
         {
+
             goingLeft = true;
             //rb.AddForce(new Vector3(-300 * chargeTime, 0, 0),ForceMode.Impulse);            
         }
@@ -102,6 +117,7 @@ public class AttackBehavior : MonoBehaviour
     }
     void punchMovmentManger()
     {
+        //check if you are which way you are going then launch you in the direction based on the time you are charging
         if(goingRight && PunchMoveOvertime.ElapsedMilliseconds < 200 * chargeTime)
         {
             rb.AddForce(new Vector3(2 * chargeTime, 0, 0), ForceMode.Impulse);
