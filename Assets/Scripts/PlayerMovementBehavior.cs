@@ -17,73 +17,65 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     //Gravity
     public float fallSpeed;
-
+    public float airControl =1;
+    private float airControlHold;
+    private Stopwatch stopwatch = new Stopwatch();
+    private Stopwatch JumpCoolDown = new Stopwatch();
+    private bool jumped;
+    public ParticleSystem bloodSpray;
     //right is false
     //left is truth
-    private bool facing= false;
+    [HideInInspector]
+    public bool facing= false;
+    public Stopwatch invinsiblityTimer = new Stopwatch();
+
 
     //Get refrence to the valueKeepingBehavior
     [SerializeField]
-    private ValueKeepingBehavior liveValue;
+    public ValueKeepingBehavior liveValue;
 
-    public Stopwatch invinsiblityTimer = new Stopwatch();
+    
 
     public GameObject punchBox;
 
-    Stopwatch stopwatch = new Stopwatch();
-    
 
+
+    public LayerMask GroundLayers;
 
     //Determines how high the player can jump
     public float jumpForce;
 
     //Determines what ground is
     //private bool isGrounded;
-
+    CapsuleCollider coli;
 
 
     void Start()
     {
         //Get the Rigibody of the player
         rigi = GetComponent<Rigidbody>();
-
+        coli = GetComponent<CapsuleCollider>();
         stopwatch.Start();
         invinsiblityTimer.Start();
-
-
+        JumpCoolDown.Start();
+        
     }
 
     void FixedUpdate()
     {
         movmentManager();
-        punchManager();
+        VelocityCorrection();
+        
+        if(liveValue.lives <= 0)
+        {
+            die();
+        }
     }
-
-    //Old Jumping System if we decide to use Diagonal platforms
-
-    //void OnCollisionEnter(Collision collision)
-    //{
-
-    //    switch (collision.gameObject.tag)
-    //    {
-    //        //If the gameObject is ground set isGrounded to true
-    //        case "Ground":
-    //            isGrounded = true;
-    //             break;
-    //        default:
-    //            isGrounded = false;
-    //            break;
-    //    }
-    //    if (!collision.gameObject)
-    //    {
-    //        isGrounded = false;
-    //    }
-    //}
 
     private void OnTriggerEnter(Collider other)
     {
         // UnityEngine.Debug.Log("this far");
-        if (other.gameObject.CompareTag("Enemy") && invinsiblityTimer.ElapsedMilliseconds > 100)
+        if (other.gameObject.CompareTag("Enemy") && invinsiblityTimer.ElapsedMilliseconds > 200)
         {
             //UnityEngine.Debug.Log("this far");
             liveValue.lives--;
@@ -91,83 +83,63 @@ public class PlayerMovementBehavior : MonoBehaviour
             invinsiblityTimer.Restart();
         }
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    //If the tag is the player
-    //    if(other.CompareTag("Player"))
-    //    {
-    //        //Decrease the players life count
-    //        liveValue.lives--;
-    //    }
-    //}
-
-
-    void Update()
-    {
-        //get rid of punch box
-        if(punchBox.activeSelf == true && stopwatch.ElapsedMilliseconds > 100)
-        {
-            punchBox.SetActive(false);
-        }
-        //If the player is on ground and space key is pressed
-        if (rigi.velocity.y == 0 && Input.GetKeyDown(KeyCode.Space))
-
-        //How fast the player moves
-        rigi.velocity = new Vector3(moveInput * speed, rigi.velocity.y, 0);
-    }
-
-    //void OnCollisionEnter(Collision collision)
-    //{
-    //    switch (collision.gameObject.tag)
-    //    {
-    //        //If the gameObject is ground set isGrounded to true
-    //        case "Ground":
-    //            isGrounded = true;
-    //            ; break;
-    //        default:
-    //            break;
-    //    }
-    //}
-
     void movmentManager()
     {
+      
         //moveInput is equel to the Horizontal control
         moveInput = Input.GetAxisRaw("Horizontal");
 
         if (moveInput > 0)
         {
             facing = false;
-            punchBox.transform.localPosition = new Vector3(1, 0, 0);
+            //punchBox.transform.localPosition = new Vector3(1, 0, 0);
+            transform.localRotation= new Quaternion(0,0,0,0) ;
         }
         else if (moveInput < 0)
         {
             facing = true;
-            punchBox.transform.localPosition = new Vector3(-1, 0, 0);
+            //punchBox.transform.localPosition = new Vector3(-1, 0, 0);
+            transform.localRotation = new Quaternion(0, 180, 0, 0);
         }
         //If the player is on ground and space key is pressed
-        if (rigi.velocity.y == 0 && Input.GetKeyDown(KeyCode.Space))
+    
+        if (IsGrounded() == true && Input.GetKey(KeyCode.Space)&& JumpCoolDown.ElapsedMilliseconds > 100)
         {
-            rigi.velocity = new Vector3(rigi.velocity.x, 1 * jumpForce, 0);
+            rigi.AddForce(0,jumpForce,0,ForceMode.Impulse);
+            JumpCoolDown.Restart();
+           
+           
         }
 
+        if(IsGrounded() == true)
+        {
+            airControlHold = 1;
+        }
+        else
+        {
+            airControlHold = airControl;
+        }
         
         //How fast the player moves
-        rigi.velocity = new Vector3(moveInput * speed, rigi.velocity.y- fallSpeed , 0);
+        rigi.velocity = new Vector3(moveInput * speed * airControlHold, rigi.velocity.y - fallSpeed , 0);
     }
-    void punchManager()
+    //checks if the player is currently grounded
+    private bool IsGrounded()
     {
-        //check if player wants to punch
-        if (Input.GetKeyDown(KeyCode.R) && stopwatch.ElapsedMilliseconds > 200)
+       
+        //checks if the player is on the ground by calculating if the ground is colliding with the bottom of the capsule
+        return Physics.CheckCapsule(coli.bounds.center, new Vector3(coli.bounds.center.x, coli.bounds.min.y,coli.bounds.center.z),coli.radius * .5f,GroundLayers);        
+    }
+    private void VelocityCorrection()
+    {
+        if(rigi.velocity.y > 25)
         {
-            punchBox.SetActive(true);
-            stopwatch.Restart();
+            rigi.velocity = new Vector3(rigi.velocity.x,25,rigi.velocity.z);
         }
-        //get rid of punch box
-        if (punchBox.activeSelf == true && stopwatch.ElapsedMilliseconds > 100)
-        {
-            punchBox.SetActive(false);
-        }
-
+    }
+    public void die()
+    {
+        bloodSpray.gameObject.SetActive(true);
+        bloodSpray.Play();
     }
 }
