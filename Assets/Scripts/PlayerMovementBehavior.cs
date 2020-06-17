@@ -119,9 +119,20 @@ public class PlayerMovementBehavior : MonoBehaviour
         {
             airControlHold = airControl;
         }
-        
+
+       
         //How fast the player moves
-        rigi.velocity = new Vector3(moveInput * speed * airControlHold, rigi.velocity.y - fallSpeed , 0);
+        if(IsGrounded())
+        {
+            rigi.velocity = new Vector3(moveInput * speed * airControlHold, 0, 0);
+        }
+        else
+        {
+            rigi.velocity = new Vector3(moveInput * speed * airControlHold, rigi.velocity.y - fallSpeed , 0);
+        }
+       
+        
+        
     }
     //checks if the player is currently grounded
     private bool IsGrounded()
