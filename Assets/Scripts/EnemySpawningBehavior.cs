@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaspSpawnerBehavior : MonoBehaviour
+public class EnemySpawningBehavior : MonoBehaviour
 {
      public List<GameObject> EnemySelection;
-    System.Random random= new System.Random();
+     private System.Random Number= new System.Random();
 
-    private int WillThisSpawn;
-    private int enemySelected;
+     private int WillThisSpawn;
+     private int enemySelected;
     // Start is called before the first frame update
     void Start()
     {
-        WillThisSpawn = random.Next(0, 10);
-        enemySelected = random.Next(0, EnemySelection.Count);
+        WillThisSpawn = Number.Next(0, 10);
+        enemySelected = Number.Next(0, EnemySelection.Count);
         if(WillThisSpawn > 4)
         {
             Instantiate(EnemySelection[enemySelected], transform);
