@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿``using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
@@ -12,6 +12,7 @@ public class AttackBehavior : MonoBehaviour
     private bool IsCharging = false;
     private float CurrentDamage;
     private float speedStorage;
+    public float PunchPower;
     [SerializeField]
     
     
@@ -120,13 +121,13 @@ public class AttackBehavior : MonoBehaviour
         //check if you are which way you are going then launch you in the direction based on the time you are charging
         if(goingRight && PunchMoveOvertime.ElapsedMilliseconds < 200 * chargeTime)
         {
-            rb.AddForce(new Vector3(2 * chargeTime, 0, 0), ForceMode.Impulse);
+            rb.AddForce(new Vector3(PunchPower * chargeTime, 0, 0), ForceMode.Impulse);
             
             return;
         }
         else if(goingLeft && PunchMoveOvertime.ElapsedMilliseconds < 200 * chargeTime)
         {
-            rb.AddForce(new Vector3(-2 * chargeTime, 0, 0), ForceMode.Impulse);
+            rb.AddForce(new Vector3(-PunchPower * chargeTime, 0, 0), ForceMode.Impulse);
            
             return;
         }
