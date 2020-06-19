@@ -141,6 +141,7 @@ public class PlayerMovementBehavior : MonoBehaviour
         //checks if the player is on the ground by calculating if the ground is colliding with the bottom of the capsule
         return Physics.CheckCapsule(coli.bounds.center, new Vector3(coli.bounds.center.x, coli.bounds.min.y,coli.bounds.center.z),coli.radius * .5f,GroundLayers);        
     }
+    //prevents the player from accelerating upward faster than they should
     private void VelocityCorrection()
     {
         if(rigi.velocity.y > 25)
@@ -152,5 +153,6 @@ public class PlayerMovementBehavior : MonoBehaviour
     {
         bloodSpray.gameObject.SetActive(true);
         bloodSpray.Play();
+        Application.Quit();
     }
 }

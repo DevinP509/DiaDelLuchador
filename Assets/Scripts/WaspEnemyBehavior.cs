@@ -21,6 +21,7 @@ public class WaspEnemyBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        scoreKeep = FindObjectOfType<ValueKeepingBehavior>();
         player = GameObject.FindWithTag("Player");
         GameCamera = UnityEngine.Camera.main;
         rendererer = GetComponent<Renderer>();
@@ -88,9 +89,9 @@ public class WaspEnemyBehavior : MonoBehaviour
         //add a point
         scoreKeep.score++;
         //destroy this object
-        Object.Destroy(this);
+        Destroy(gameObject);
 
-        
+
     }
 
  
@@ -102,13 +103,13 @@ public class WaspEnemyBehavior : MonoBehaviour
             gameObject.tag = "InactiveEnemy";
             DamagePreventer.Restart();
             //get the time the player charged a punch
-            float chargeMult = other.gameObject.GetComponentInParent<AttackBehavior>().chargeTime; ;
+            float chargeMult = other.gameObject.GetComponentInParent<AttackBehavior>().chargeTime;
             //subtract health based off charge time
             Health -= 1 * chargeMult;
             //play bloodspray partical
             bloodSpray.Play();
             //knock enemy away
-            rb.AddForce(-rb.velocity * 10 * chargeMult, ForceMode.Impulse);
+            rb.AddForce(-rb.velocity * 2 * chargeMult, ForceMode.Impulse);
           
         }
 

@@ -42,6 +42,10 @@ public class AttackBehavior : MonoBehaviour
     {
         punch();
         punchMovmentManger();
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
     }
     void punch()
     {
@@ -50,7 +54,7 @@ public class AttackBehavior : MonoBehaviour
         if(IsCharging == true)
         {
             //set the players speed down while charging a punch
-            MovmentScript.speed = speedStorage/4;
+            MovmentScript.speed = speedStorage/2;
             //store charge time in seconds
             chargeTime = (ChargeTimer.ElapsedMilliseconds / 1000)* ChargeRate;
             if(chargeTime < MinCharge)

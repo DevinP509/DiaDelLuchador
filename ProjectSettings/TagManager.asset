@@ -10,6 +10,7 @@ TagManager:
   - PlatformDestroyer
   - Inactive
   - InactiveEnemy
+  - ValueKeeper
   layers:
   - Default
   - TransparentFX
