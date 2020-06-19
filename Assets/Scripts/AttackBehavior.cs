@@ -13,6 +13,8 @@ public class AttackBehavior : MonoBehaviour
     private float CurrentDamage;
     private float speedStorage;
     public float PunchPower;
+    public float ChargeRate;
+    public float MinCharge;
     [SerializeField]
     
     
@@ -50,7 +52,11 @@ public class AttackBehavior : MonoBehaviour
             //set the players speed down while charging a punch
             MovmentScript.speed = speedStorage/4;
             //store charge time in seconds
-            chargeTime = ChargeTimer.ElapsedMilliseconds / 1000;
+            chargeTime = (ChargeTimer.ElapsedMilliseconds / 1000)* ChargeRate;
+            if(chargeTime < MinCharge)
+            {
+                chargeTime = MinCharge;
+            }
             //cap the charge time
             if(chargeTime >= 5)
             {
@@ -79,9 +85,13 @@ public class AttackBehavior : MonoBehaviour
         //get rid of punch box after a attack depending on how long it was charged
         if (punchBox.activeSelf == true && PunchCoolDown.ElapsedMilliseconds > 200*chargeTime)
         {
-            //set movment back to normal after punch
-            MovmentScript.speed = speedStorage;
-            punchBox.SetActive(false);
+            
+                //set movment back to normal after punch
+                MovmentScript.speed = speedStorage;
+            
+                punchBox.SetActive(false);
+            
+          
         }
     }
     void startCharging()

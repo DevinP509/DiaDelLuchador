@@ -13,10 +13,12 @@ public class EnemySpawningBehavior : MonoBehaviour
     void Start()
     {
         WillThisSpawn = Number.Next(0, 10);
-        enemySelected = Number.Next(0, EnemySelection.Count);
-        if(WillThisSpawn > 4)
+        enemySelected = Number.Next(0, EnemySelection.Count-1);
+        Vector3 onescaler = new Vector3(1, 1, 1);
+        Quaternion quaternion = new Quaternion(1, 1, 1, 1);
+        if(WillThisSpawn > 0)
         {
-            Instantiate(EnemySelection[enemySelected], transform);
+            Instantiate(EnemySelection[enemySelected],gameObject.transform);
         }
     }
 
