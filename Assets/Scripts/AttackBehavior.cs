@@ -12,6 +12,9 @@ public class AttackBehavior : MonoBehaviour
     private bool IsCharging = false;
     private float CurrentDamage;
     private float speedStorage;
+    public float PunchPower;
+    public float ChargeRate;
+    public float MinCharge;
     [SerializeField]
     
     
@@ -39,6 +42,10 @@ public class AttackBehavior : MonoBehaviour
     {
         punch();
         punchMovmentManger();
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
     }
     void punch()
     {
@@ -47,9 +54,13 @@ public class AttackBehavior : MonoBehaviour
         if(IsCharging == true)
         {
             //set the players speed down while charging a punch
-            MovmentScript.speed = speedStorage/4;
+            MovmentScript.speed = speedStorage/2;
             //store charge time in seconds
-            chargeTime = ChargeTimer.ElapsedMilliseconds / 1000;
+            chargeTime = (ChargeTimer.ElapsedMilliseconds / 1000)* ChargeRate;
+            if(chargeTime < MinCharge)
+            {
+                chargeTime = MinCharge;
+            }
             //cap the charge time
             if(chargeTime >= 5)
             {
@@ -78,9 +89,13 @@ public class AttackBehavior : MonoBehaviour
         //get rid of punch box after a attack depending on how long it was charged
         if (punchBox.activeSelf == true && PunchCoolDown.ElapsedMilliseconds > 200*chargeTime)
         {
-            //set movment back to normal after punch
-            MovmentScript.speed = speedStorage;
-            punchBox.SetActive(false);
+            
+                //set movment back to normal after punch
+                MovmentScript.speed = speedStorage;
+            
+                punchBox.SetActive(false);
+            
+          
         }
     }
     void startCharging()
@@ -120,13 +135,13 @@ public class AttackBehavior : MonoBehaviour
         //check if you are which way you are going then launch you in the direction based on the time you are charging
         if(goingRight && PunchMoveOvertime.ElapsedMilliseconds < 200 * chargeTime)
         {
-            rb.AddForce(new Vector3(2 * chargeTime, 0, 0), ForceMode.Impulse);
+            rb.AddForce(new Vector3(PunchPower * chargeTime, 0, 0), ForceMode.Impulse);
             
             return;
         }
         else if(goingLeft && PunchMoveOvertime.ElapsedMilliseconds < 200 * chargeTime)
         {
-            rb.AddForce(new Vector3(-2 * chargeTime, 0, 0), ForceMode.Impulse);
+            rb.AddForce(new Vector3(-PunchPower * chargeTime, 0, 0), ForceMode.Impulse);
            
             return;
         }

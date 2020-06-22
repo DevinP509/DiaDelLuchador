@@ -1,18 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Diagnostics;
 public class WaspEnemyBehavior : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
     public int speed;
-    public int Damage;
-    public int Health;
-    public Camera GameCamera;
+  
+    public float Health;
+    private Camera GameCamera;
     public Rigidbody rb;
     private Renderer rendererer;
     private BoxCollider collider;
     public ParticleSystem bloodSpray;
+    private Stopwatch DamagePreventer = new Stopwatch();
     [SerializeField]
     //Refrence to the ValueKeepingBehavior
     private ValueKeepingBehavior scoreKeep;
@@ -20,6 +21,8 @@ public class WaspEnemyBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        scoreKeep = FindObjectOfType<ValueKeepingBehavior>();
+        player = GameObject.FindWithTag("Player");
         GameCamera = UnityEngine.Camera.main;
         rendererer = GetComponent<Renderer>();
         collider = GetComponent<BoxCollider>();
@@ -36,6 +39,10 @@ public class WaspEnemyBehavior : MonoBehaviour
         if (Health <= 0)
         {
             die();
+        }
+        if(DamagePreventer.ElapsedMilliseconds > 1000)
+        {
+            gameObject.tag = "Enemy";
         }
     }
     private void ChasePlayer()
@@ -61,14 +68,12 @@ public class WaspEnemyBehavior : MonoBehaviour
         }
 
     }
-    public void TakeDamage(int damgage)
-    {
-
-    }
+    //check if currently on the screen
     private bool CheckIfOnScreen()
     {
-
+        //generate planes to check agaisnt
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(GameCamera);
+        //check if this object collides with those planes
         if (GeometryUtility.TestPlanesAABB(planes, collider.bounds))
             return true;
         else
@@ -79,12 +84,14 @@ public class WaspEnemyBehavior : MonoBehaviour
 
     private void die()
     {
+        //play blood spray 
         bloodSpray.Play();
+        //add a point
         scoreKeep.score++;
-        gameObject.SetActive(false);
+        //destroy this object
+        Destroy(gameObject);
 
-        //increase the players score
-        
+
     }
 
  
@@ -92,10 +99,20 @@ public class WaspEnemyBehavior : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PunchBox"))
         {
-            Health--;
+            //prevents the player from being damaged while punching through a enemy
+            gameObject.tag = "InactiveEnemy";
+            DamagePreventer.Restart();
+            //get the time the player charged a punch
+            float chargeMult = other.gameObject.GetComponentInParent<AttackBehavior>().chargeTime;
+            //subtract health based off charge time
+            Health -= 1 * chargeMult;
+            //play bloodspray partical
             bloodSpray.Play();
-            rb.AddForce(-rb.velocity * 10, ForceMode.Impulse);
+            //knock enemy away
+            rb.AddForce(-rb.velocity * 2 * chargeMult, ForceMode.Impulse);
+          
         }
+
     }
 
 }
