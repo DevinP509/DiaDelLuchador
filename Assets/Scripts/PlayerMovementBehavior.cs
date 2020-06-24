@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
+
 public class PlayerMovementBehavior : MonoBehaviour
 {
     //Refrences to the rigidbody
@@ -74,10 +74,6 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("DeathWall"))
-        {
-            die();
-        }
         // UnityEngine.Debug.Log("this far");
         if (other.gameObject.CompareTag("Enemy") && invinsiblityTimer.ElapsedMilliseconds > 200)
         {
@@ -157,6 +153,6 @@ public class PlayerMovementBehavior : MonoBehaviour
     {
         bloodSpray.gameObject.SetActive(true);
         bloodSpray.Play();
-        SceneManager.LoadScene(2);
+        Application.Quit();
     }
 }
