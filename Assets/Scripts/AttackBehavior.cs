@@ -5,15 +5,24 @@ using UnityEngine;
 
 public class AttackBehavior : MonoBehaviour
 {
+    //used to prevent punch spamming
     private Stopwatch PunchCoolDown = new Stopwatch();
+
     private Stopwatch ChargeTimer = new Stopwatch();
+    //used to give movment over time on punch release
     private Stopwatch PunchMoveOvertime = new Stopwatch();
+    //the hitbox the punch
     public GameObject punchBox;
+    //Activated in the player is charging a punch
     private bool IsCharging = false;
-    private float CurrentDamage;
+
+    //stores the current speed of the player
     private float speedStorage;
+    //a multiplyer for the distance the punch will send you
     public float PunchPower;
+    //the rate the punch will charge
     public float ChargeRate;
+    //the minimum charge a punch can have
     public float MinCharge;
     [SerializeField]
     
@@ -30,10 +39,11 @@ public class AttackBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //get components
         rb = GetComponent<Rigidbody>();
         MovmentScript = GetComponent<PlayerMovementBehavior>();
         PunchCoolDown.Start();
+        //store a refrence to the players origonal movement speed
         speedStorage = MovmentScript.speed;
     }
 
@@ -41,7 +51,9 @@ public class AttackBehavior : MonoBehaviour
     void Update()
     {
         punch();
+        //manages the movment of punch relase
         punchMovmentManger();
+        //Temporary Position Allows exiting 
         if (Input.GetKey("escape"))
         {
             Application.Quit();
@@ -57,6 +69,7 @@ public class AttackBehavior : MonoBehaviour
             MovmentScript.speed = speedStorage/2;
             //store charge time in seconds
             chargeTime = (ChargeTimer.ElapsedMilliseconds / 1000)* ChargeRate;
+            //raises the charge above the minimum charge 
             if(chargeTime < MinCharge)
             {
                 chargeTime = MinCharge;
@@ -76,6 +89,7 @@ public class AttackBehavior : MonoBehaviour
             //start charging if the the player isnt already charging 
             if(IsCharging == false)
             {
+
                 startCharging(); 
 
             }                 
@@ -100,10 +114,12 @@ public class AttackBehavior : MonoBehaviour
     }
     void startCharging()
     {
+        //start the charge timer 
         IsCharging = true;
         ChargeTimer.Start();
-        
+        //store the current charge time in secounds
         chargeTime = ChargeTimer.ElapsedMilliseconds / 1000;
+        //Scale Up the size of the chargebar
         chargebar.transform.localScale = new Vector3(.5f,chargeTime,1);
     }
     void ReleaseCharge()
@@ -135,19 +151,22 @@ public class AttackBehavior : MonoBehaviour
         //check if you are which way you are going then launch you in the direction based on the time you are charging
         if(goingRight && PunchMoveOvertime.ElapsedMilliseconds < 200 * chargeTime)
         {
+            //add force going right
             rb.AddForce(new Vector3(PunchPower * chargeTime, 0, 0), ForceMode.Impulse);
             
             return;
         }
         else if(goingLeft && PunchMoveOvertime.ElapsedMilliseconds < 200 * chargeTime)
         {
+            //add force going left
             rb.AddForce(new Vector3(-PunchPower * chargeTime, 0, 0), ForceMode.Impulse);
            
             return;
         }
+        //the punch movment is complete
         goingLeft = false;
         goingRight = false;
-        
+        //stop the movement timer
         PunchMoveOvertime.Stop();
     }
 }

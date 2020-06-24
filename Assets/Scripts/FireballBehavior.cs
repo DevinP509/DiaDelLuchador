@@ -17,7 +17,7 @@ public class FireballBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (stopwatch.ElapsedMilliseconds > 4000)
+        if (stopwatch.ElapsedMilliseconds > 10000)
         {
             Destroy(gameObject);
         }
