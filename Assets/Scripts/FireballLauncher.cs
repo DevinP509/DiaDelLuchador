@@ -11,7 +11,7 @@ public class FireballLauncher : MonoBehaviour
 
     public int speed;
 
-    public float firerate;
+    public int firerate;
 
     private Rigidbody rb;
 
@@ -54,7 +54,6 @@ public class FireballLauncher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        firerate = FindObjectOfType<ValueKeepingBehavior>().Difficulty;
         followplayer();
         fire();
     }
