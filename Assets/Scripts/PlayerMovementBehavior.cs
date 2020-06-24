@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine.SceneManagement;
 public class PlayerMovementBehavior : MonoBehaviour
 {
     //Refrences to the rigidbody
@@ -153,6 +153,6 @@ public class PlayerMovementBehavior : MonoBehaviour
     {
         bloodSpray.gameObject.SetActive(true);
         bloodSpray.Play();
-        Application.Quit();
+        SceneManager.LoadScene(2);
     }
 }
