@@ -74,6 +74,10 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.CompareTag("DeathWall"))
+        {
+            die();
+        }
         // UnityEngine.Debug.Log("this far");
         if (other.gameObject.CompareTag("Enemy") && invinsiblityTimer.ElapsedMilliseconds > 200)
         {
