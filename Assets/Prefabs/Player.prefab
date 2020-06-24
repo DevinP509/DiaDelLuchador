@@ -4883,7 +4883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f09c60320b8fcc4c8318edd61b1c55c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 19
   fallSpeed: 0.6
   airControl: 0.5
   bloodSpray: {fileID: 0}
@@ -4920,6 +4920,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   punchBox: {fileID: 7696992140817943776}
+  PunchPower: 0
+  ChargeRate: 0
+  MinCharge: 0
   chargeTime: 0
   chargebar: {fileID: 7696992141357558822}
 --- !u!1 &7696992140817943776
