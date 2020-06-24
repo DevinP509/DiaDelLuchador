@@ -38,7 +38,11 @@ Transform:
   - {fileID: 6865050832842371327}
   - {fileID: 7696992140817943783}
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 1947542544513620723}
+=======
+  - {fileID: 7166365367101425962}
+>>>>>>> parent of fc49a30... Merge branch 'master' into Devin
 =======
   - {fileID: 7166365367101425962}
 >>>>>>> parent of fc49a30... Merge branch 'master' into Devin
@@ -362,6 +366,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1001 &152474298820546468
 PrefabInstance:
@@ -894,5 +899,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6808804295713518057}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> parent of fc49a30... Merge branch 'master' into Devin
 =======
 >>>>>>> parent of fc49a30... Merge branch 'master' into Devin
