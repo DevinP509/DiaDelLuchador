@@ -37,11 +37,7 @@ Transform:
   - {fileID: 7696992141357558826}
   - {fileID: 6865050832842371327}
   - {fileID: 7696992140817943783}
-<<<<<<< HEAD
   - {fileID: 1947542544513620723}
-=======
-  - {fileID: 7166365367101425962}
->>>>>>> parent of fc49a30... Merge branch 'master' into Devin
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -60,7 +56,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7696992140077951513}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -281,7 +277,7 @@ GameObject:
   - component: {fileID: 7696992141357558827}
   - component: {fileID: 7696992141357558820}
   - component: {fileID: 7696992141357558821}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ChargeSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +292,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7696992141357558822}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1, y: 1.49, z: 0}
+  m_LocalPosition: {x: -1.1, y: 2.72, z: 0}
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7696992140077951517}
@@ -362,7 +358,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
 --- !u!1001 &152474298820546468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -894,5 +889,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6808804295713518057}
   m_PrefabAsset: {fileID: 0}
-=======
->>>>>>> parent of fc49a30... Merge branch 'master' into Devin
