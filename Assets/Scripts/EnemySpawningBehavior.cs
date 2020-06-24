@@ -12,9 +12,10 @@ public class EnemySpawningBehavior : MonoBehaviour
     void Start()
     {
         Random.Range(0, 10);
+        WillThisSpawn = Random.Range(0, 100);
         enemySelected = Random.Range(0, EnemySelection.Count );
        
-        if(WillThisSpawn > 0)
+        if(WillThisSpawn > 70)
         {
             Instantiate(EnemySelection[enemySelected],gameObject.transform);
         }
