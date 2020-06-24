@@ -17,6 +17,7 @@ public class PlatformFallingBehavior : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PlatformDestroyer"))
         {
+            UnityEngine.Debug.Log("this far");
             Destroy(gameObject);
         }
     }
