@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<<< HEAD:Assets/Prefabs/Platform4.prefab.meta
 guid: 1924a0c38c42eac4da20da80cef3efda
+========
+guid: 96afaeee6a328de4d8ffc04864b35dea
+>>>>>>>> Devin:Assets/Prefabs/PlatformSets/Platforms[5].prefab.meta
+=======
+guid: 4b285eeddcad67b449c11adcf49eb5a7
+>>>>>>> Devin
 PrefabImporter:
   externalObjects: {}
   userData: 
