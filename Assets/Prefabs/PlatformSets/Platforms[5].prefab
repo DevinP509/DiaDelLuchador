@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3750132641774931632}
   - component: {fileID: 6866102191900699314}
+  - component: {fileID: -1506101568930274006}
+  - component: {fileID: 5317936342014484319}
   m_Layer: 0
   m_Name: Platforms[5]
   m_TagString: Untagged
@@ -67,6 +69,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallSpeed: 0.03
+--- !u!65 &-1506101568930274006
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6397435338389641945}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &5317936342014484319
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6397435338389641945}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &658918073793542227
 PrefabInstance:
   m_ObjectHideFlags: 0
