@@ -23,8 +23,8 @@ public class PlatformSpawnerBehavior : MonoBehaviour
     {
         if(stopwatch.ElapsedMilliseconds /1000 >= SpawnTime)
         {
-            int number =random.Next(0, PlatformPreFabs.Count);
-            UnityEngine.Debug.LogError(number);
+            int number = random.Next(0, PlatformPreFabs.Count);
+            UnityEngine.Debug.Log(number);
             GameObject platform = PlatformPreFabs[number];
             platform.GetComponent<PlatformFallingBehavior>().fallSpeed = platformFallRate;
             Instantiate(platform, transform);
