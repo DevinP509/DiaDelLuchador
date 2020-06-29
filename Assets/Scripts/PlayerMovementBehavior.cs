@@ -140,7 +140,7 @@ public class PlayerMovementBehavior : MonoBehaviour
         }
         else
         {
-            rigi.AddForce((moveInput * speed / 2 ) * Time.deltaTime,-fallSpeed* Time.deltaTime , 0);
+            rigi.AddForce(((moveInput * speed)*.75f )* Time.deltaTime,-fallSpeed* Time.deltaTime , 0);
         }
        
         
