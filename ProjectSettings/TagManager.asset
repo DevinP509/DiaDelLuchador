@@ -8,6 +8,10 @@ TagManager:
   - PunchBox
   - Enemy
   - PlatformDestroyer
+  - Inactive
+  - InactiveEnemy
+  - ValueKeeper
+  - DeathWall
   layers:
   - Default
   - TransparentFX
