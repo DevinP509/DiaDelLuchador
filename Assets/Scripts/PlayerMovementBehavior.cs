@@ -111,7 +111,7 @@ public class PlayerMovementBehavior : MonoBehaviour
         {
             
             //slow the player down 10% if no key is held down
-            rigi.AddForce(-rigi.velocity.x * DecelPerUpdate, 0, 0,ForceMode.Impulse) ;
+            rigi.AddForce(-rigi.velocity.x * DecelPerUpdate * Time.deltaTime, 0, 0,ForceMode.Impulse) ;
         }
         //If the player is on ground and space key is pressed
     
