@@ -1629,7 +1629,7 @@ PrefabInstance:
     - target: {fileID: 7696992140077951516, guid: 4aeadd03b1f6edf429d538418fb96642,
         type: 3}
       propertyPath: jumpForce
-      value: 23
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7696992140077951516, guid: 4aeadd03b1f6edf429d538418fb96642,
         type: 3}
@@ -1639,16 +1639,21 @@ PrefabInstance:
     - target: {fileID: 7696992140077951516, guid: 4aeadd03b1f6edf429d538418fb96642,
         type: 3}
       propertyPath: speed
-      value: 19
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 7696992140077951516, guid: 4aeadd03b1f6edf429d538418fb96642,
         type: 3}
       propertyPath: fallSpeed
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7696992140077951516, guid: 4aeadd03b1f6edf429d538418fb96642,
         type: 3}
       propertyPath: SpeedCap
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7696992140077951516, guid: 4aeadd03b1f6edf429d538418fb96642,
+        type: 3}
+      propertyPath: DecelPerUpdate
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7696992140077951517, guid: 4aeadd03b1f6edf429d538418fb96642,
