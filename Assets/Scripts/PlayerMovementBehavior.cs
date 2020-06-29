@@ -136,11 +136,11 @@ public class PlayerMovementBehavior : MonoBehaviour
         if(IsGrounded())
         {
             //rigi.velocity = new Vector3(moveInput * speed * airControlHold, 0, 0);
-            rigi.AddForce(moveInput * speed,-fallSpeed,0);
+            rigi.AddForce(moveInput * speed * Time.deltaTime,-fallSpeed * Time.deltaTime,0);
         }
         else
         {
-            rigi.AddForce(moveInput * speed / 2,-fallSpeed , 0);
+            rigi.AddForce((moveInput * speed / 2 ) * Time.deltaTime,-fallSpeed* Time.deltaTime , 0);
         }
        
         
