@@ -480,7 +480,7 @@ MonoBehaviour:
   PlatformPreFabs:
   - {fileID: 2195182392173159771, guid: 854838a2b2ca11849b26d6c89e4896bd, type: 3}
   - {fileID: 3620783634706530796, guid: 8601f869e9cd2f34e8d0d3aa8f08dcda, type: 3}
-  - {fileID: 2507817511214880455, guid: 0e5b9f70fa43458499f6e13ba7f74c7b, type: 3}
+  - {fileID: 6397435338389641945, guid: 96afaeee6a328de4d8ffc04864b35dea, type: 3}
   SpawnTime: 44
   platformFallRate: 0.03
 --- !u!135 &460822135
@@ -1644,7 +1644,12 @@ PrefabInstance:
     - target: {fileID: 7696992140077951516, guid: 4aeadd03b1f6edf429d538418fb96642,
         type: 3}
       propertyPath: fallSpeed
-      value: 0.6
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7696992140077951516, guid: 4aeadd03b1f6edf429d538418fb96642,
+        type: 3}
+      propertyPath: SpeedCap
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7696992140077951517, guid: 4aeadd03b1f6edf429d538418fb96642,
         type: 3}

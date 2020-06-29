@@ -17,17 +17,19 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     //Gravity
     public float fallSpeed;
-    public float airControl =1;
-    private float airControlHold;
+    //public float airControl =1;
+   
     private Stopwatch stopwatch = new Stopwatch();
     private Stopwatch JumpCoolDown = new Stopwatch();
     private bool jumped;
     public ParticleSystem bloodSpray;
+    public float SpeedCap;
     //right is false
     //left is truth
     [HideInInspector]
     public bool facing= false;
     public Stopwatch invinsiblityTimer = new Stopwatch();
+    
 
 
     //Get refrence to the valueKeepingBehavior
@@ -105,34 +107,40 @@ public class PlayerMovementBehavior : MonoBehaviour
             //punchBox.transform.localPosition = new Vector3(-1, 0, 0);
             transform.localRotation = new Quaternion(0, 180, 0, 0);
         }
+        else
+        {
+            
+            //slow the player down 10% if no key is held down
+            rigi.AddForce(-rigi.velocity.x * .1f, 0, 0,ForceMode.Impulse) ;
+        }
         //If the player is on ground and space key is pressed
     
         if (IsGrounded() == true && Input.GetKey(KeyCode.Space)&& JumpCoolDown.ElapsedMilliseconds > 100)
         {
+            rigi.velocity = new Vector3(rigi.velocity.x,0,0);
             rigi.AddForce(0,jumpForce,0,ForceMode.Impulse);
-            JumpCoolDown.Restart();
-           
-           
+            JumpCoolDown.Restart();                  
         }
 
-        if(IsGrounded() == true)
-        {
-            airControlHold = 1;
-        }
-        else
-        {
-            airControlHold = airControl;
-        }
+        //if(IsGrounded() == true)
+        //{
+        //    airControlHold = 1;
+        //}
+        //else
+        //{
+        //    //airControlHold = airControl;
+        //}
 
        
         //How fast the player moves
         if(IsGrounded())
         {
-            rigi.velocity = new Vector3(moveInput * speed * airControlHold, 0, 0);
+            //rigi.velocity = new Vector3(moveInput * speed * airControlHold, 0, 0);
+            rigi.AddForce(moveInput * speed,-fallSpeed,0);
         }
         else
         {
-            rigi.velocity = new Vector3(moveInput * speed * airControlHold, rigi.velocity.y - fallSpeed , 0);
+            rigi.AddForce(moveInput * speed / 2,-fallSpeed , 0);
         }
        
         
@@ -148,9 +156,13 @@ public class PlayerMovementBehavior : MonoBehaviour
     //prevents the player from accelerating upward faster than they should
     private void VelocityCorrection()
     {
-        if(rigi.velocity.y > 25)
+        if(rigi.velocity.x > SpeedCap)
         {
-            rigi.velocity = new Vector3(rigi.velocity.x,25,rigi.velocity.z);
+            rigi.velocity = new Vector3(SpeedCap,rigi.velocity.y,rigi.velocity.z);
+        }
+        else if(rigi.velocity.x < -SpeedCap)
+        {
+            rigi.velocity = new Vector3(-SpeedCap, rigi.velocity.y, rigi.velocity.z);
         }
     }
     public void die()
