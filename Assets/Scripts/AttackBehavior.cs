@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
+
+
 public class AttackBehavior : MonoBehaviour
 {
     //used to prevent punch spamming
     private Stopwatch PunchCoolDown = new Stopwatch();
-
+    
     private Stopwatch ChargeTimer = new Stopwatch();
     //used to give movment over time on punch release
     private Stopwatch PunchMoveOvertime = new Stopwatch();
@@ -27,6 +29,7 @@ public class AttackBehavior : MonoBehaviour
     public float ChargeRate;
     //the minimum charge a punch can have
     public float MinCharge;
+    float holderTime;
     [SerializeField]
     
     
@@ -65,12 +68,10 @@ public class AttackBehavior : MonoBehaviour
     void punch()
     {
 
-        //if a attack is charging lower speed and start filling
-        if(IsCharging == true)
-        {
-            ChargePhaseManager();
+
+        timeElapsed();
             ChargeBarAnimator();
-        }
+        
 
         //check if player wants to punch and if the punch box is currently active
         if (Input.GetAxis("Fire1") > 0  && punchBox.activeSelf == false)
@@ -78,7 +79,7 @@ public class AttackBehavior : MonoBehaviour
             //start charging if the the player isnt already charging 
             if(IsCharging == false)
             {
-
+                holderTime = Time.time;
                 startCharging(); 
 
             }                 
@@ -153,42 +154,7 @@ public class AttackBehavior : MonoBehaviour
         //stop the movement timer
         PunchMoveOvertime.Stop();
     }
-    void ChargePhaseManager()
-    {
-        //set the players speed down while charging a punch
-        MovmentScript.speed = speedStorage/2;
-        //store charge time in seconds
-        chargeTime = (ChargeTimer.ElapsedMilliseconds / 1000);
-        //raises the charge above the minimum charge 
-        if (chargeTime >0)
-        {
-            if(chargeTime >1 * timeBetweenChargePhases && chargeTime<2 * timeBetweenChargePhases)
-            {
-                UnityEngine.Debug.Log("2");
-                
-                CurrentPunch = PunchPhases[2];
-                PunchPhase = 2;
-            }
-            else if(chargeTime >2 * timeBetweenChargePhases)
-            {
-
-                CurrentPunch = PunchPhases[3];
-                PunchPhase = 3;
-            }
-            else
-            {
-                CurrentPunch = PunchPhases[1];
-                PunchPhase = 1;
-            }
-           
-        }
-        else
-        {
-            CurrentPunch = PunchPhases[0];
-            PunchPhase = 0;
-        }
-         
-    }
+ 
     void ChargeBarAnimator()
     {
         foreach(GameObject i in PunchPhases)
@@ -200,4 +166,75 @@ public class AttackBehavior : MonoBehaviour
         }
         CurrentPunch.SetActive(true);
     }
+    void timeElapsed()
+    {
+        float timeElapsed = Time.time - holderTime;
+        if (timeElapsed >= 3 * timeBetweenChargePhases)
+        {
+
+            CurrentPunch = PunchPhases[3];
+            PunchPhase = 3;
+        }
+        else if (timeElapsed >= 2 * timeBetweenChargePhases)
+        {
+            UnityEngine.Debug.Log("2");
+
+            CurrentPunch = PunchPhases[2];
+            PunchPhase = 2;
+
+        }
+       else if (timeElapsed >= 1 * timeBetweenChargePhases)
+       {
+            CurrentPunch = PunchPhases[1];
+            PunchPhase = 1;
+       }
+        else
+        {
+            CurrentPunch = PunchPhases[0];
+            PunchPhase = 0;
+        }
+    }
+     
+    //*Old Implmentation 
+    //Doesnt Work
+    //void ChargePhaseManager()
+    //{
+    //    //set the players speed down while charging a punch
+    //    MovmentScript.speed = speedStorage/2;
+    //    //store charge time in seconds
+    //    chargeTime = (ChargeTimer.ElapsedMilliseconds / 1000);
+    //    //raises the charge above the minimum charge 
+        
+    //    if (chargeTime >0)
+    //    {
+            
+    //        if(chargeTime > 1 && chargeTime < 2)
+    //        {
+    //            UnityEngine.Debug.Log("2");
+                
+    //            CurrentPunch = PunchPhases[2];
+    //            PunchPhase = 2;
+
+    //        }
+    //        else if(chargeTime >2 * timeBetweenChargePhases )
+    //        {
+
+    //            CurrentPunch = PunchPhases[3];
+    //            PunchPhase = 3;
+    //        }
+    //        else
+    //        {
+    //            CurrentPunch = PunchPhases[1];
+    //            PunchPhase = 1;
+    //        }
+           
+    //    }
+    //    else
+    //    {
+    //        CurrentPunch = PunchPhases[0];
+    //        PunchPhase = 0;
+    //    }
+         
+    //}  
+    
 }
