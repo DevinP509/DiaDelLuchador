@@ -10,8 +10,8 @@ public class PlatformSpawnerBehavior : MonoBehaviour
     public float SpawnTime;
     public float platformFallRate;
     Stopwatch stopwatch = new Stopwatch();
-     System.Random random = new System.Random();
-    
+    System.Random random = new System.Random();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,15 +21,17 @@ public class PlatformSpawnerBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(stopwatch.ElapsedMilliseconds /1000 >= SpawnTime)
+        if (stopwatch.ElapsedMilliseconds / 1000 >= SpawnTime)
         {
             int number = random.Next(0, PlatformPreFabs.Count);
             UnityEngine.Debug.Log(number);
             GameObject platform = PlatformPreFabs[number];
             platform.GetComponent<PlatformFallingBehavior>().fallSpeed = platformFallRate;
             Instantiate(platform, transform);
-            
+
             stopwatch.Restart();
         }
     }
 }
+  
+
