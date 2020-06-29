@@ -24,7 +24,8 @@ public class AttackBehavior : MonoBehaviour
 
     private bool goingRight;
     private bool goingLeft;
-    // Start is called before the first frame update
+
+    //Start is called before the first frame update
     void Start()
     {
         
@@ -34,12 +35,13 @@ public class AttackBehavior : MonoBehaviour
         speedStorage = MovmentScript.speed;
     }
 
-    // Update is called once per frame
+    //Update is called once per frame
     void Update()
     {
         punch();
         punchMovmentManger();
     }
+
     void punch()
     {
 
@@ -48,15 +50,18 @@ public class AttackBehavior : MonoBehaviour
         {
             //set the players speed down while charging a punch
             MovmentScript.speed = speedStorage/4;
+
             //store charge time in seconds
             chargeTime = ChargeTimer.ElapsedMilliseconds / 1000;
+
             //cap the charge time
             if(chargeTime >= 5)
             {
                 chargeTime = 5;
             }
+
             //expand the bar depending on charge time
-                chargebar.transform.localScale = new Vector3(.5f, chargeTime, 1);
+            chargebar.transform.localScale = new Vector3(.5f, chargeTime, 1);
         }
 
         //check if player wants to punch and if the punch box is currently active
@@ -66,9 +71,9 @@ public class AttackBehavior : MonoBehaviour
             if(IsCharging == false)
             {
                 startCharging(); 
-
             }                 
-        }        
+        } 
+        
         //if the player releases the charge button then release the charge
         else if(IsCharging == true &&  Input.GetAxis("Fire1") == 0)
         {
@@ -83,6 +88,7 @@ public class AttackBehavior : MonoBehaviour
             punchBox.SetActive(false);
         }
     }
+
     void startCharging()
     {
         IsCharging = true;
@@ -91,21 +97,17 @@ public class AttackBehavior : MonoBehaviour
         chargeTime = ChargeTimer.ElapsedMilliseconds / 1000;
         chargebar.transform.localScale = new Vector3(.5f,chargeTime,1);
     }
+
     void ReleaseCharge()
     {
         if(MovmentScript.facing == false)
-        {
-            
-            goingRight = true;
-            //rb.AddForce(new Vector3(300*chargeTime,0,0), ForceMode.Impulse);            
+        {       
+            goingRight = true;       
         }
         else
         {
-
-            goingLeft = true;
-            //rb.AddForce(new Vector3(-300 * chargeTime, 0, 0),ForceMode.Impulse);            
+            goingLeft = true;;            
         }
-
 
         PunchMoveOvertime.Restart();
 
@@ -115,6 +117,7 @@ public class AttackBehavior : MonoBehaviour
         punchBox.SetActive(true);
         chargebar.transform.localScale = new Vector3(.5f, 0, 1);
     }
+
     void punchMovmentManger()
     {
         //check if you are which way you are going then launch you in the direction based on the time you are charging
@@ -124,12 +127,14 @@ public class AttackBehavior : MonoBehaviour
             
             return;
         }
+
         else if(goingLeft && PunchMoveOvertime.ElapsedMilliseconds < 200 * chargeTime)
         {
             rb.AddForce(new Vector3(-2 * chargeTime, 0, 0), ForceMode.Impulse);
            
             return;
         }
+
         goingLeft = false;
         goingRight = false;
         

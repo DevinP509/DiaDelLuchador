@@ -13,11 +13,12 @@ public class WaspEnemyBehavior : MonoBehaviour
     private Renderer rendererer;
     private BoxCollider collider;
     public ParticleSystem bloodSpray;
+
     [SerializeField]
     //Refrence to the ValueKeepingBehavior
     private ValueKeepingBehavior scoreKeep;
 
-    // Start is called before the first frame update
+    //Start is called before the first frame update
     void Start()
     {
         GameCamera = UnityEngine.Camera.main;
@@ -26,18 +27,17 @@ public class WaspEnemyBehavior : MonoBehaviour
         bloodSpray.Stop();
     }
 
-    // Update is called once per frame
+    //Update is called once per frame
     void Update()
     {
-
         ChasePlayer();
-
 
         if (Health <= 0)
         {
             die();
         }
     }
+
     private void ChasePlayer()
     {
         if (CheckIfOnScreen() == true)
@@ -59,15 +59,15 @@ public class WaspEnemyBehavior : MonoBehaviour
             //Return the force
             rb.AddForce(force);
         }
-
     }
+
     public void TakeDamage(int damgage)
     {
-
+        //Needs code
     }
+
     private bool CheckIfOnScreen()
     {
-
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(GameCamera);
         if (GeometryUtility.TestPlanesAABB(planes, collider.bounds))
             return true;
@@ -80,11 +80,11 @@ public class WaspEnemyBehavior : MonoBehaviour
     private void die()
     {
         bloodSpray.Play();
-        scoreKeep.score++;
-        gameObject.SetActive(false);
 
         //increase the players score
-        
+        scoreKeep.score++;
+
+        gameObject.SetActive(false);        
     }
 
  
@@ -97,5 +97,4 @@ public class WaspEnemyBehavior : MonoBehaviour
             rb.AddForce(-rb.velocity * 10, ForceMode.Impulse);
         }
     }
-
 }
