@@ -6,6 +6,8 @@ using UnityEngine;
 public class PlatformFallingBehavior : MonoBehaviour
 {
     public float fallSpeed;
+
+    public GameObject platformspawner;
     // Start is called before the first frame update
     void Start()
     {

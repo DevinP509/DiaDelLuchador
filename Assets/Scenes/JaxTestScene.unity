@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -835,6 +835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallSpeed: 0.02
+  platformspawner: {fileID: 0}
 --- !u!54 &613191541
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1225,6 +1226,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2984459415890280102, guid: 8601f869e9cd2f34e8d0d3aa8f08dcda,
+        type: 3}
+      propertyPath: platformspawner
+      value: 
+      objectReference: {fileID: 460822133}
     - target: {fileID: 3620783634706530796, guid: 8601f869e9cd2f34e8d0d3aa8f08dcda,
         type: 3}
       propertyPath: m_Name
@@ -1954,6 +1960,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platforms[2]
       objectReference: {fileID: 0}
+    - target: {fileID: 4607991661813419032, guid: 854838a2b2ca11849b26d6c89e4896bd,
+        type: 3}
+      propertyPath: platformspawner
+      value: 
+      objectReference: {fileID: 460822133}
     - target: {fileID: 5357405500918632684, guid: 854838a2b2ca11849b26d6c89e4896bd,
         type: 3}
       propertyPath: m_LocalPosition.x
