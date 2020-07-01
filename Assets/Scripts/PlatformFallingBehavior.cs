@@ -7,7 +7,7 @@ public class PlatformFallingBehavior : MonoBehaviour
 {
     public float fallSpeed;
 
-    public GameObject platformspawner;
+    public GameObject platformSpawner;
     // Start is called before the first frame update
     void Start()
     {

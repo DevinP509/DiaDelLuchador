@@ -14,12 +14,13 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     //Base player movement
     public float speed;
-    public float DecelPerUpdate;
+
+    public float DecelPerSec;
     //Gravity
     public float fallSpeed;
     //public float airControl =1;
    
-    private Stopwatch stopwatch = new Stopwatch();
+    
     private Stopwatch JumpCoolDown = new Stopwatch();
     private bool jumped;
     public ParticleSystem bloodSpray;
@@ -46,27 +47,33 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     //Determines how high the player can jump
     public float jumpForce;
-
+    public bool DisabledForPunch = false;
     //Determines what ground is
     //private bool isGrounded;
     CapsuleCollider coli;
-
+    AttackBehavior attackBehavior;
 
     void Start()
     {
         //Get the Rigibody of the player
         rigi = GetComponent<Rigidbody>();
         coli = GetComponent<CapsuleCollider>();
-        stopwatch.Start();
+        attackBehavior = GetComponent<AttackBehavior>();
         invinsiblityTimer.Start();
         JumpCoolDown.Start();
         
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        movmentManager();
-        VelocityCorrection();
+
+         movmentManager();
+        if(!attackBehavior.punchBox.activeSelf)
+        {
+            VelocityCorrection();
+        }
+            
+       
         
         if(liveValue.lives <= 0)
         {
@@ -111,14 +118,17 @@ public class PlayerMovementBehavior : MonoBehaviour
         {
             
             //slow the player down 10% if no key is held down
-            rigi.AddForce(-rigi.velocity.x * DecelPerUpdate * Time.deltaTime, 0, 0,ForceMode.Impulse) ;
+            rigi.AddForce(-rigi.velocity.x * DecelPerSec * Time.deltaTime, 0, 0,ForceMode.Impulse) ;
         }
         //If the player is on ground and space key is pressed
     
         if (IsGrounded() == true && Input.GetKey(KeyCode.Space)&& JumpCoolDown.ElapsedMilliseconds > 100)
         {
+            //set players y velocity to zero
             rigi.velocity = new Vector3(rigi.velocity.x,0,0);
+            //add jumpforce
             rigi.AddForce(0,jumpForce,0,ForceMode.Impulse);
+            //set jump cool down to prevent multi jumping
             JumpCoolDown.Restart();                  
         }
 

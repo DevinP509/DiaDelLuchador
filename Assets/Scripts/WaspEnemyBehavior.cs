@@ -103,13 +103,13 @@ public class WaspEnemyBehavior : MonoBehaviour
             gameObject.tag = "InactiveEnemy";
             DamagePreventer.Restart();
             //get the time the player charged a punch
-            float chargeMult = other.gameObject.GetComponentInParent<AttackBehavior>().chargeTime;
+            float chargeMult = other.gameObject.GetComponentInParent<AttackBehavior>().PunchPhase;
             //subtract health based off charge time
-            Health -= 1 * chargeMult;
+            Health -= chargeMult;
             //play bloodspray partical
             bloodSpray.Play();
             //knock enemy away
-            rb.AddForce(-rb.velocity * 2 * chargeMult, ForceMode.Impulse);
+            rb.AddForce(-rb.velocity *4 * chargeMult, ForceMode.Impulse);
           
         }
 

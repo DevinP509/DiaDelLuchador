@@ -4880,7 +4880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  Health: 3
+  Health: 2
   rb: {fileID: 4423734197106013468}
   bloodSpray: {fileID: 4423734197019674459}
   scoreKeep: {fileID: 0}

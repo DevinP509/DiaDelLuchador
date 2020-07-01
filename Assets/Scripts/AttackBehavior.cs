@@ -10,14 +10,14 @@ public class AttackBehavior : MonoBehaviour
     //used to prevent punch spamming
     private Stopwatch PunchCoolDown = new Stopwatch();
     
-    private Stopwatch ChargeTimer = new Stopwatch();
+   
     //used to give movment over time on punch release
-    private Stopwatch PunchMoveOvertime = new Stopwatch();
+   
     //the hitbox the punch
     public GameObject punchBox;
     //Activated in the player is charging a punch
     private bool IsCharging = false;
-    private int PunchPhase = 0;
+    public int PunchPhase = 0;
     public GameObject[] PunchPhases;
     public GameObject CurrentPunch;
     public float timeBetweenChargePhases;
@@ -25,10 +25,9 @@ public class AttackBehavior : MonoBehaviour
     private float speedStorage;
     //a multiplyer for the distance the punch will send you
     public float PunchPower;
-    //the rate the punch will charge
-    public float ChargeRate;
-    //the minimum charge a punch can have
-    public float MinCharge;
+   
+
+    private
     float holderTime;
     [SerializeField]
     
@@ -54,11 +53,12 @@ public class AttackBehavior : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         punch();
-        //manages the movment of punch relase
         punchMovmentManger();
+        //manages the movment of punch relase
+        // punchMovmentManger();
         //Temporary Position Allows exiting 
         if (Input.GetKey("escape"))
         {
@@ -70,7 +70,12 @@ public class AttackBehavior : MonoBehaviour
 
 
         timeElapsed();
-        ChargeBarAnimator();
+        if(IsCharging)
+        {
+            
+            ChargeBarAnimator();
+        }
+       
         
 
         //check if player wants to punch and if the punch box is currently active
@@ -80,7 +85,9 @@ public class AttackBehavior : MonoBehaviour
             if(IsCharging == false)
             {
                 holderTime = Time.time;
-                startCharging(); 
+                
+                //start the charge timer 
+                IsCharging = true;
 
             }                 
         }        
@@ -91,7 +98,7 @@ public class AttackBehavior : MonoBehaviour
         }
 
         //get rid of punch box after a attack depending on how long it was charged
-        if (punchBox.activeSelf == true && PunchCoolDown.ElapsedMilliseconds > 200*chargeTime)
+        if (punchBox.activeSelf == true && PunchCoolDown.ElapsedMilliseconds > timeBetweenChargePhases * PunchPhase)
         {
             
                 //set movment back to normal after punch
@@ -102,12 +109,7 @@ public class AttackBehavior : MonoBehaviour
           
         }
     }
-    void startCharging()
-    {
-        //start the charge timer 
-        IsCharging = true;
-        ChargeTimer.Start();             
-    }
+
     void ReleaseCharge()
     {
         if(MovmentScript.facing == false)
@@ -124,35 +126,39 @@ public class AttackBehavior : MonoBehaviour
         }
 
 
-        PunchMoveOvertime.Restart();
 
+        //manages the movment of punch relase
+      
         IsCharging = false;
-        ChargeTimer.Reset();
+        
+        CurrentPunch = PunchPhases[0];
+        ChargeBarAnimator();
         PunchCoolDown.Restart();
         punchBox.SetActive(true);       
     }
     void punchMovmentManger()
     {
         //check if you are which way you are going then launch you in the direction based on the time you are charging
-        if(goingRight && PunchMoveOvertime.ElapsedMilliseconds < 200 * PunchPhase)
+        if(goingRight && punchBox.activeInHierarchy )
         {
             //add force going right
-            rb.AddForce(new Vector3(PunchPower * PunchPhase, 0, 0), ForceMode.Impulse);
-            
+            rb.AddForce(new Vector3(PunchPower, 0, 0), ForceMode.Impulse);
             return;
+
         }
-        else if(goingLeft && PunchMoveOvertime.ElapsedMilliseconds < 200 * PunchPhase)
+        else if(goingLeft&& punchBox.activeInHierarchy)
         {
             //add force going left
-            rb.AddForce(new Vector3(-PunchPower * PunchPhase, 0, 0), ForceMode.Impulse);
-           
+            rb.AddForce(new Vector3(-PunchPower, 0, 0), ForceMode.Impulse);
             return;
+            
         }
+       
         //the punch movment is complete
         goingLeft = false;
         goingRight = false;
         //stop the movement timer
-        PunchMoveOvertime.Stop();
+       
     }
  
     void ChargeBarAnimator()
@@ -169,13 +175,13 @@ public class AttackBehavior : MonoBehaviour
     void timeElapsed()
     {
         float timeElapsed = Time.time - holderTime;
-        if (timeElapsed >= 3 * timeBetweenChargePhases)
+        if (timeElapsed >= 2 * timeBetweenChargePhases)
         {
 
             CurrentPunch = PunchPhases[3];
             PunchPhase = 3;
         }
-        else if (timeElapsed >= 2 * timeBetweenChargePhases)
+        else if (timeElapsed >= 1 * timeBetweenChargePhases)
         {
             UnityEngine.Debug.Log("2");
 
@@ -183,7 +189,7 @@ public class AttackBehavior : MonoBehaviour
             PunchPhase = 2;
 
         }
-       else if (timeElapsed >= 1 * timeBetweenChargePhases)
+       else if (timeElapsed >= 0 * timeBetweenChargePhases)
        {
             CurrentPunch = PunchPhases[1];
             PunchPhase = 1;

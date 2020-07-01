@@ -27,7 +27,7 @@ public class PlatformSpawnerBehavior : MonoBehaviour
             UnityEngine.Debug.Log(number);
             GameObject platform = PlatformPreFabs[number];
             platform.GetComponent<PlatformFallingBehavior>().fallSpeed = platformFallRate;
-            platform.GetComponent<PlatformFallingBehavior>().platformspawner = this.gameObject;
+            platform.GetComponent<PlatformFallingBehavior>().platformSpawner = this.gameObject;
             Instantiate(platform, transform);
             
 
