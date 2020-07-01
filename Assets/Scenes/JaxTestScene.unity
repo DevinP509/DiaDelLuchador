@@ -1045,7 +1045,7 @@ GameObject:
   - component: {fileID: 839169760}
   - component: {fileID: 839169759}
   - component: {fileID: 839169758}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: DeathWall
   m_TagString: DeathWall
   m_Icon: {fileID: 0}
@@ -1571,7 +1571,7 @@ GameObject:
   - component: {fileID: 1584443198}
   m_Layer: 0
   m_Name: 'Quetzalcuatol '
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1864,7 +1864,7 @@ MonoBehaviour:
   - {fileID: 1484273756}
   CurrentPunch: {fileID: 795412634}
   timeBetweenChargePhases: 1
-  PunchPower: 2
+  PunchPower: 1.5
   chargeTime: 0
   chargebar: {fileID: 871280485}
 --- !u!1 &1821392667
