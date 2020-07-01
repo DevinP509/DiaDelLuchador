@@ -142,15 +142,15 @@ public class AttackBehavior : MonoBehaviour
         //check if you are which way you are going then launch you in the direction based on the time you are charging
         if(goingRight && punchBox.activeInHierarchy )
         {
-            //add force going right
-            rb.AddForce(new Vector3(PunchPower * PunchPhase, 0, 0), ForceMode.Impulse);
+            //add force going right and slightly up to prevent the player from going down
+            rb.AddForce(new Vector3(PunchPower * PunchPhase, .15f, 0), ForceMode.Impulse);
             return;
 
         }
         else if(goingLeft&& punchBox.activeInHierarchy)
         {
-            //add force going left
-            rb.AddForce(new Vector3(-PunchPower * PunchPhase, 0, 0), ForceMode.Impulse);
+            //add force going left and slightly up to prevent the player from going down
+            rb.AddForce(new Vector3(-PunchPower * PunchPhase, .15f, 0), ForceMode.Impulse);
             return;
             
         }
