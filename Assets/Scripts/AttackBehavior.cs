@@ -70,7 +70,7 @@ public class AttackBehavior : MonoBehaviour
 
 
         timeElapsed();
-            ChargeBarAnimator();
+        ChargeBarAnimator();
         
 
         //check if player wants to punch and if the punch box is currently active
