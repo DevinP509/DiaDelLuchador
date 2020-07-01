@@ -98,7 +98,7 @@ public class AttackBehavior : MonoBehaviour
         }
 
         //get rid of punch box after a attack depending on how long it was charged
-        if (punchBox.activeSelf == true && PunchCoolDown.ElapsedMilliseconds > timeBetweenChargePhases * PunchPhase)
+        if (punchBox.activeSelf == true && PunchCoolDown.ElapsedMilliseconds >   200  * PunchPhase)
         {
             
                 //set movment back to normal after punch
@@ -138,18 +138,19 @@ public class AttackBehavior : MonoBehaviour
     }
     void punchMovmentManger()
     {
+
         //check if you are which way you are going then launch you in the direction based on the time you are charging
         if(goingRight && punchBox.activeInHierarchy )
         {
             //add force going right
-            rb.AddForce(new Vector3(PunchPower, 0, 0), ForceMode.Impulse);
+            rb.AddForce(new Vector3(PunchPower * PunchPhase, 0, 0), ForceMode.Impulse);
             return;
 
         }
         else if(goingLeft&& punchBox.activeInHierarchy)
         {
             //add force going left
-            rb.AddForce(new Vector3(-PunchPower, 0, 0), ForceMode.Impulse);
+            rb.AddForce(new Vector3(-PunchPower * PunchPhase, 0, 0), ForceMode.Impulse);
             return;
             
         }
