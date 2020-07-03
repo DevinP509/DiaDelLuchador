@@ -65,6 +65,16 @@ public class WaspEnemyBehavior : MonoBehaviour
 
             //Return the force
             rb.AddForce(force);
+            if(rb.velocity.x >=0)
+            {
+                transform.localRotation = new Quaternion(0, 0, 0, 0);
+                
+            }
+            else
+            {
+                transform.localRotation = new Quaternion(0, 180, 0, 0);
+               
+            }
         }
 
     }
