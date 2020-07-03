@@ -84,6 +84,7 @@ public class AttackBehavior : MonoBehaviour
             //start charging if the the player isnt already charging 
             if(IsCharging == false)
             {
+                MovmentScript.DisabledForPunch = true;
                 holderTime = Time.time;
                 
                 //start the charge timer 
@@ -103,7 +104,7 @@ public class AttackBehavior : MonoBehaviour
             
                 //set movment back to normal after punch
                 MovmentScript.speed = speedStorage;
-            
+            MovmentScript.DisabledForPunch = false;
                 punchBox.SetActive(false);
             
           

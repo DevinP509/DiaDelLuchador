@@ -30,8 +30,8 @@ public class PlayerMovementBehavior : MonoBehaviour
     [HideInInspector]
     public bool facing= false;
     public Stopwatch invinsiblityTimer = new Stopwatch();
-    
-
+    private float speedhold;
+    private float jumpforceHold;
 
     //Get refrence to the valueKeepingBehavior
     [SerializeField]
@@ -61,16 +61,29 @@ public class PlayerMovementBehavior : MonoBehaviour
         attackBehavior = GetComponent<AttackBehavior>();
         invinsiblityTimer.Start();
         JumpCoolDown.Start();
-        
+        speedhold = speed;
+        jumpforceHold = jumpForce;
     }
 
     void Update()
     {
 
+
          movmentManager();
         if(!attackBehavior.punchBox.activeSelf)
         {
             VelocityCorrection();
+
+        }
+        if(DisabledForPunch)
+        {
+            speed = 0;
+            jumpForce = 0;
+        }
+        else
+        {
+            speed = speedhold;
+            jumpForce = jumpforceHold;
         }
             
        

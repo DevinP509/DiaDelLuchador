@@ -1864,7 +1864,7 @@ MonoBehaviour:
   - {fileID: 1484273756}
   CurrentPunch: {fileID: 795412634}
   timeBetweenChargePhases: 1
-  PunchPower: 1.1
+  PunchPower: 1
   chargeTime: 0
   chargebar: {fileID: 871280485}
 --- !u!1 &1821392667
