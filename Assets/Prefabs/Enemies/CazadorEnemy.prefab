@@ -4884,6 +4884,7 @@ MonoBehaviour:
   rb: {fileID: 4423734197106013468}
   bloodSpray: {fileID: 4423734197019674459}
   scoreKeep: {fileID: 0}
+  enemeyDetector: {fileID: 0}
 --- !u!1001 &3416036665520577998
 PrefabInstance:
   m_ObjectHideFlags: 0
