@@ -11,7 +11,7 @@ public class PlatformFallingBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        platformSpawner = GameObject.FindGameObjectWithTag("PlatformSpawner");
     }
 
 
@@ -20,8 +20,8 @@ public class PlatformFallingBehavior : MonoBehaviour
         if (other.gameObject.tag == "PlatformDestroyer")
         {
             Destroy(gameObject);
-            GameObject go = GameObject.Find("PlatformSpawner");
-            PlatformSpawnerBehavior Spawner = (PlatformSpawnerBehavior)go.GetComponent(typeof(PlatformSpawnerBehavior));
+            
+            PlatformSpawnerBehavior Spawner = platformSpawner.GetComponent<PlatformSpawnerBehavior>();
             Spawner.SpawnOnDestroy();
         }
     }
