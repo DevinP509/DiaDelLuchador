@@ -45,6 +45,7 @@ public class WaspEnemyBehavior : MonoBehaviour
             gameObject.tag = "Enemy";
         }
     }
+
     private void ChasePlayer()
     {
         if (CheckIfOnScreen() == true)
@@ -66,8 +67,8 @@ public class WaspEnemyBehavior : MonoBehaviour
             //Return the force
             rb.AddForce(force);
         }
-
     }
+
     //check if currently on the screen
     private bool CheckIfOnScreen()
     {
@@ -90,8 +91,6 @@ public class WaspEnemyBehavior : MonoBehaviour
         scoreKeep.score++;
         //destroy this object
         Destroy(gameObject);
-
-
     }
 
  
@@ -109,10 +108,7 @@ public class WaspEnemyBehavior : MonoBehaviour
             //play bloodspray partical
             bloodSpray.Play();
             //knock enemy away
-            rb.AddForce(-rb.velocity * 2 * chargeMult, ForceMode.Impulse);
-          
+            rb.AddForce(-rb.velocity * 2 * chargeMult, ForceMode.Impulse);        
         }
-
     }
-
 }
