@@ -68,27 +68,30 @@ public class PlayerMovementBehavior : MonoBehaviour
     void Update()
     {
 
-
-         movmentManager();
-        if(!attackBehavior.punchBox.activeSelf)
+        movmentManager();
+        // movmentManager();
+ 
+        if (DisabledForPunch)
         {
-            VelocityCorrection();
-
-        }
-        if(DisabledForPunch)
-        {
+            movmentManager();
             speed = 0;
             jumpForce = 0;
         }
         else
         {
+
             speed = speedhold;
             jumpForce = jumpforceHold;
         }
-            
-       
-        
-        if(liveValue.lives <= 0)
+        if (!DisabledForPunch)
+        {
+            VelocityCorrection();
+
+        }
+
+
+
+        if (liveValue.lives <= 0)
         {
             die();
         }
@@ -115,13 +118,13 @@ public class PlayerMovementBehavior : MonoBehaviour
         //moveInput is equel to the Horizontal control
         moveInput = Input.GetAxisRaw("Horizontal");
 
-        if (moveInput > 0)
+        if (moveInput > 0 && !DisabledForPunch)
         {
             facing = false;
             //punchBox.transform.localPosition = new Vector3(1, 0, 0);
             transform.localRotation= new Quaternion(0,0,0,0) ;
         }
-        else if (moveInput < 0)
+        else if (moveInput < 0 && ! DisabledForPunch)
         {
             facing = true;
             //punchBox.transform.localPosition = new Vector3(-1, 0, 0);

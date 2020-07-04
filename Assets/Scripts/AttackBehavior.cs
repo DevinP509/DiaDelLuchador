@@ -104,7 +104,7 @@ public class AttackBehavior : MonoBehaviour
             
                 //set movment back to normal after punch
                 MovmentScript.speed = speedStorage;
-            MovmentScript.DisabledForPunch = false;
+                MovmentScript.DisabledForPunch = false;
                 punchBox.SetActive(false);
             
           
