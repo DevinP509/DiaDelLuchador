@@ -67,7 +67,11 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips: []
+  referencedClips:
+  - 75f71761bcc94394e8b62b76ac9aa612
+  - f6b9fe4af49dd7d4c86f3fd1a9c5dbc1
+  - 1cc453257cb55454686c70148cc0d40e
+  - deaacbe55c8d9e446bdfa12e9d925880
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
@@ -89,7 +93,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
