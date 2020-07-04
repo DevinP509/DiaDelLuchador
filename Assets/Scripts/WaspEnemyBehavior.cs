@@ -17,10 +17,11 @@ public class WaspEnemyBehavior : MonoBehaviour
     [SerializeField]
     //Refrence to the ValueKeepingBehavior
     private ValueKeepingBehavior scoreKeep;
-
+    public EnemeyDetector enemeyDetector;
     // Start is called before the first frame update
     void Start()
     {
+        enemeyDetector = FindObjectOfType<EnemeyDetector>();
         scoreKeep = FindObjectOfType<ValueKeepingBehavior>();
         player = GameObject.FindWithTag("Player");
         GameCamera = UnityEngine.Camera.main;
@@ -38,6 +39,7 @@ public class WaspEnemyBehavior : MonoBehaviour
 
         if (Health <= 0)
         {
+            enemeyDetector.count--;
             die();
         }
         if(DamagePreventer.ElapsedMilliseconds > 1000)
@@ -45,7 +47,6 @@ public class WaspEnemyBehavior : MonoBehaviour
             gameObject.tag = "Enemy";
         }
     }
-
     private void ChasePlayer()
     {
         if (CheckIfOnScreen() == true)
@@ -66,9 +67,19 @@ public class WaspEnemyBehavior : MonoBehaviour
 
             //Return the force
             rb.AddForce(force);
+            if(rb.velocity.x >=0)
+            {
+                transform.localRotation = new Quaternion(0, 0, 0, 0);
+                
+            }
+            else
+            {
+                transform.localRotation = new Quaternion(0, 180, 0, 0);
+               
+            }
         }
-    }
 
+    }
     //check if currently on the screen
     private bool CheckIfOnScreen()
     {
@@ -91,6 +102,8 @@ public class WaspEnemyBehavior : MonoBehaviour
         scoreKeep.score++;
         //destroy this object
         Destroy(gameObject);
+
+
     }
 
  
@@ -102,13 +115,16 @@ public class WaspEnemyBehavior : MonoBehaviour
             gameObject.tag = "InactiveEnemy";
             DamagePreventer.Restart();
             //get the time the player charged a punch
-            float chargeMult = other.gameObject.GetComponentInParent<AttackBehavior>().chargeTime;
+            float chargeMult = other.gameObject.GetComponentInParent<AttackBehavior>().PunchPhase;
             //subtract health based off charge time
-            Health -= 1 * chargeMult;
+            Health -= chargeMult;
             //play bloodspray partical
             bloodSpray.Play();
             //knock enemy away
-            rb.AddForce(-rb.velocity * 2 * chargeMult, ForceMode.Impulse);        
+            rb.AddForce(-rb.velocity *4 * chargeMult, ForceMode.Impulse);
+          
         }
+
     }
+
 }
