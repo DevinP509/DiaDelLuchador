@@ -17,10 +17,11 @@ public class WaspEnemyBehavior : MonoBehaviour
     [SerializeField]
     //Refrence to the ValueKeepingBehavior
     private ValueKeepingBehavior scoreKeep;
-
+    public EnemeyDetector enemeyDetector;
     // Start is called before the first frame update
     void Start()
     {
+        enemeyDetector = FindObjectOfType<EnemeyDetector>();
         scoreKeep = FindObjectOfType<ValueKeepingBehavior>();
         player = GameObject.FindWithTag("Player");
         GameCamera = UnityEngine.Camera.main;
@@ -38,6 +39,7 @@ public class WaspEnemyBehavior : MonoBehaviour
 
         if (Health <= 0)
         {
+            enemeyDetector.count--;
             die();
         }
         if(DamagePreventer.ElapsedMilliseconds > 1000)

@@ -28,7 +28,7 @@ public class PlatformSpawnerBehavior : MonoBehaviour
     void Update()
     {
       
-        if(enemeyDetector.count != countHold)
+        if(enemeyDetector.count != countHold || enemeyDetector.count == 0)
         {
             if (enemeyDetector.count <= 0)
             {
@@ -48,19 +48,17 @@ public class PlatformSpawnerBehavior : MonoBehaviour
                 }
             }
         }
-        if (stopwatch.ElapsedMilliseconds / 1000 >= SpawnTime)
-        {
-            int number = random.Next(0, PlatformPreFabs.Count);
-            UnityEngine.Debug.Log(number);
-            GameObject platform = PlatformPreFabs[number];
-            platform.GetComponent<PlatformFallingBehavior>().fallSpeed = platformFallRate;
-            platform.GetComponent<PlatformFallingBehavior>().platformSpawner = this.gameObject;
-            Instantiate(platform, transform);
-            
-
-            stopwatch.Restart();
-        } 
+     
         countHold = enemeyDetector.count;
+    }
+
+    public void SpawnOnDestroy()
+    {
+        int number = random.Next(0, PlatformPreFabs.Count);
+        UnityEngine.Debug.Log(number);
+        GameObject platform = PlatformPreFabs[number];
+        platform.GetComponent<PlatformFallingBehavior>().fallSpeed = platformFallRate;
+        Instantiate(platform, transform);
     }
 }
   
