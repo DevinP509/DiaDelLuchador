@@ -581,9 +581,9 @@ MonoBehaviour:
   - {fileID: 3620783634706530796, guid: 8601f869e9cd2f34e8d0d3aa8f08dcda, type: 3}
   - {fileID: 6397435338389641945, guid: 96afaeee6a328de4d8ffc04864b35dea, type: 3}
   SpawnTime: 44
-  platformFallRate: 0.2
+  platformFallRate: 0.03
   enemycounter: {fileID: 735030671}
-  FallRateNoEnemys: 0.2
+  FallRateNoEnemys: 0.04
 --- !u!135 &460822135
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2095,7 +2095,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1730701658}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 715.4, y: -13.2, z: 0}
+  m_LocalPosition: {x: 0, y: -6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 585966294}
@@ -2181,6 +2181,11 @@ MonoBehaviour:
   CurrentPunch: {fileID: 795412634}
   timeBetweenChargePhases: 1
   PunchPower: 2
+  ParticalPhases:
+  - {fileID: 6038703742681122318, guid: 156ed319881eae34ab249139f19eb7df, type: 3}
+  - {fileID: 6038703742681122318, guid: 156ed319881eae34ab249139f19eb7df, type: 3}
+  - {fileID: 353650061552393166, guid: a02ab2704f0f5f944a190c2a10679733, type: 3}
+  - {fileID: 6405880911265946640, guid: 384c97c706ed7764b84913c9c7b845f4, type: 3}
   chargeTime: 0
   chargebar: {fileID: 871280485}
 --- !u!1 &1821392667

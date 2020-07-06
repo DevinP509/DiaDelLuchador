@@ -25,7 +25,7 @@ public class AttackBehavior : MonoBehaviour
     private float speedStorage;
     //a multiplyer for the distance the punch will send you
     public float PunchPower;
-   
+    public GameObject[] ParticalPhases;
 
     private
     float holderTime;
@@ -106,7 +106,7 @@ public class AttackBehavior : MonoBehaviour
                 MovmentScript.speed = speedStorage;
                 MovmentScript.DisabledForPunch = false;
                 punchBox.SetActive(false);
-            
+                ParticalPhases[PunchPhase].GetComponent<ParticleSystem>().Play();
           
         }
     }
@@ -135,6 +135,7 @@ public class AttackBehavior : MonoBehaviour
         CurrentPunch = PunchPhases[0];
         ChargeBarAnimator();
         PunchCoolDown.Restart();
+        ParticalPhases[PunchPhase].GetComponent<ParticleSystem>().Play();
         punchBox.SetActive(true);       
     }
     void punchMovmentManger()
