@@ -135,7 +135,7 @@ public class WaspEnemyBehavior : MonoBehaviour
             //play bloodspray partical
             bloodSpray.Play();
             //knock enemy away
-            rb.AddForce(-rb.velocity *4 * chargeMult, ForceMode.Impulse);
+            rb.AddForce(-rb.velocity *8 * chargeMult, ForceMode.Impulse);
           
         }
 
