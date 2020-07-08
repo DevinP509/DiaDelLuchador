@@ -6,19 +6,23 @@ using UnityEngine;
 public class PlatformFallingBehavior : MonoBehaviour
 {
     public float fallSpeed;
+
+    public GameObject platformSpawner;
     // Start is called before the first frame update
     void Start()
     {
-        
+        platformSpawner = GameObject.FindGameObjectWithTag("PlatformSpawner");
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("PlatformDestroyer"))
+        if (other.gameObject.tag == "PlatformDestroyer")
         {
-            UnityEngine.Debug.Log("this far");
             Destroy(gameObject);
+            
+            PlatformSpawnerBehavior Spawner = platformSpawner.GetComponent<PlatformSpawnerBehavior>();
+            Spawner.SpawnOnDestroy();
         }
     }
 

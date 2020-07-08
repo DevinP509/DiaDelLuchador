@@ -20,7 +20,8 @@ public class ValueKeepingBehavior : MonoBehaviour
     public Text scoreValue;
     public Text livesValue;
     public float Difficulty = 0;
-
+    
+    public GameObject[] hearts;
     /// <summary>
     /// Update is called once per frame
     /// </summary>
@@ -28,6 +29,7 @@ public class ValueKeepingBehavior : MonoBehaviour
     {
         scoreValue.text = "Score: " + score.ToString();
         livesValue.text = "Lives: " + lives.ToString();
-        Difficulty = score / 2;
+        Difficulty = 1 + score / 2;        
     }
+   
 }

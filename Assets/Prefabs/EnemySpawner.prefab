@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3564120034820653548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7075073, y: -22.626461, z: -10.568572}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemySelection:
-  - {fileID: 932760923394380183, guid: 4c91d734a43056a48a7d8fd5cb66c51a, type: 3}
   - {fileID: 4423734197106013670, guid: a65f2dee5e8304c49b9d4cf00490206c, type: 3}
+  - {fileID: 932760923394380183, guid: 4c91d734a43056a48a7d8fd5cb66c51a, type: 3}
   - {fileID: 8898842894948895806, guid: a75c3509ba36a284eb0a5aa22a129f4f, type: 3}
   SpawnChance: 70
