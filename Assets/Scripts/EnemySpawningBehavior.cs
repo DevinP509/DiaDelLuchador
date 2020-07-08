@@ -13,7 +13,7 @@ public class EnemySpawningBehavior : MonoBehaviour
     {
         Random.Range(0, 10);
         WillThisSpawn = Random.Range(0, 100);
-        enemySelected = Random.Range(0, EnemySelection.Count );
+        enemySelected = Random.Range(0, EnemySelection.Count);
        
         if(WillThisSpawn > 70)
         {

@@ -12,6 +12,7 @@ TagManager:
   - InactiveEnemy
   - ValueKeeper
   - DeathWall
+  - PlatformSpawner
   layers:
   - Default
   - TransparentFX
