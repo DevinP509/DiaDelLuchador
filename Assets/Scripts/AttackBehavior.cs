@@ -27,7 +27,7 @@ public class AttackBehavior : MonoBehaviour
     public float PunchPower;
     public GameObject[] ParticalPhases;
 
-    private
+   
     float holderTime;
     [SerializeField]
     
