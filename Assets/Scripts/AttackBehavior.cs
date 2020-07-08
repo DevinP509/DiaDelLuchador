@@ -9,7 +9,8 @@ public class AttackBehavior : MonoBehaviour
 {
     //used to prevent punch spamming
     private Stopwatch PunchCoolDown = new Stopwatch();
-    
+
+    public Animator animator;
    
     //used to give movment over time on punch release
    
@@ -25,9 +26,9 @@ public class AttackBehavior : MonoBehaviour
     private float speedStorage;
     //a multiplyer for the distance the punch will send you
     public float PunchPower;
-   
+    public GameObject[] ParticalPhases;
 
-    private
+   
     float holderTime;
     [SerializeField]
     
@@ -44,6 +45,7 @@ public class AttackBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         //get components
         rb = GetComponent<Rigidbody>();
         MovmentScript = GetComponent<PlayerMovementBehavior>();
@@ -89,7 +91,7 @@ public class AttackBehavior : MonoBehaviour
                 
                 //start the charge timer 
                 IsCharging = true;
-
+                animator.SetBool("IsCharging", true);
             }                 
         }        
         //if the player releases the charge button then release the charge
@@ -101,12 +103,13 @@ public class AttackBehavior : MonoBehaviour
         //get rid of punch box after a attack depending on how long it was charged
         if (punchBox.activeSelf == true && PunchCoolDown.ElapsedMilliseconds >   200  * PunchPhase)
         {
-            
+                animator.SetBool("IsPunching", false);
+                animator.speed = 1;
                 //set movment back to normal after punch
                 MovmentScript.speed = speedStorage;
                 MovmentScript.DisabledForPunch = false;
                 punchBox.SetActive(false);
-            
+                ParticalPhases[PunchPhase].GetComponent<ParticleSystem>().Play();
           
         }
     }
@@ -131,10 +134,13 @@ public class AttackBehavior : MonoBehaviour
         //manages the movment of punch relase
       
         IsCharging = false;
-        
+        animator.SetBool("IsCharging", false);
+        animator.SetBool("IsPunching", true);
+        animator.speed = animator.speed / PunchPhase;
         CurrentPunch = PunchPhases[0];
         ChargeBarAnimator();
         PunchCoolDown.Restart();
+        ParticalPhases[PunchPhase].GetComponent<ParticleSystem>().Play();
         punchBox.SetActive(true);       
     }
     void punchMovmentManger()
@@ -185,7 +191,7 @@ public class AttackBehavior : MonoBehaviour
         }
         else if (timeElapsed >= 1 * timeBetweenChargePhases)
         {
-            UnityEngine.Debug.Log("2");
+
 
             CurrentPunch = PunchPhases[2];
             PunchPhase = 2;

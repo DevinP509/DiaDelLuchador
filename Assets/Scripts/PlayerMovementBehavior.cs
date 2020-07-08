@@ -104,10 +104,11 @@ public class PlayerMovementBehavior : MonoBehaviour
             die();
         }
         // UnityEngine.Debug.Log("this far");
-        if (other.gameObject.CompareTag("Enemy") && invinsiblityTimer.ElapsedMilliseconds > 200)
+        if (other.gameObject.CompareTag("Enemy") && invinsiblityTimer.ElapsedMilliseconds > 3000)
         {
             //UnityEngine.Debug.Log("this far");
             liveValue.lives--;
+            liveValue.hearts[(int)(liveValue.lives)].SetActive(false);
 
             invinsiblityTimer.Restart();
         }

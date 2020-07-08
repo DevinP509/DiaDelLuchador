@@ -12,8 +12,11 @@ public class MainMenuBehavior : MonoBehaviour
     /// Load the desired scene
     /// </summary>
     /// <param name="sceneBuildIndex"></param>
+    /// 
+    
     public void loadScene(int sceneBuildIndex)
     {
+        
         SceneManager.LoadScene(0);
         SceneManager.LoadScene(sceneBuildIndex);
     }
