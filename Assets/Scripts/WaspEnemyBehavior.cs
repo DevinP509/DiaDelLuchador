@@ -6,7 +6,7 @@ public class WaspEnemyBehavior : MonoBehaviour
 {
     private GameObject player;
     public int speed;
-    float timeholder;
+  
     public float Health;
     private Camera GameCamera;
     public Rigidbody rb;
@@ -14,12 +14,10 @@ public class WaspEnemyBehavior : MonoBehaviour
     private BoxCollider collider;
     public ParticleSystem bloodSpray;
     private Stopwatch DamagePreventer = new Stopwatch();
-    private bool started= false;
     [SerializeField]
     //Refrence to the ValueKeepingBehavior
     private ValueKeepingBehavior scoreKeep;
     public EnemeyDetector enemeyDetector;
-   
     // Start is called before the first frame update
     void Start()
     {
@@ -30,25 +28,13 @@ public class WaspEnemyBehavior : MonoBehaviour
         rendererer = GetComponent<Renderer>();
         collider = GetComponent<BoxCollider>();
         bloodSpray.Stop();
-        timeholder = Time.timeSinceLevelLoad;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (started == false)
-        {
-            if (timeholder < Time.timeSinceLevelLoad)
-            {
-                started = true;
-            }
-        }
-        else
-        {
-            ChasePlayer();
-        }
 
-       
+        ChasePlayer();
 
 
         if (Health <= 0)
@@ -135,7 +121,7 @@ public class WaspEnemyBehavior : MonoBehaviour
             //play bloodspray partical
             bloodSpray.Play();
             //knock enemy away
-            rb.AddForce(-rb.velocity *8 * chargeMult, ForceMode.Impulse);
+            rb.AddForce(-rb.velocity *4 * chargeMult, ForceMode.Impulse);
           
         }
 
