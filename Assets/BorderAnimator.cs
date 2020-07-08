@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class BorderAnimator : MonoBehaviour
 {
-    public Texture[] textures;
+    public Sprite[] textures;
     int currentFrame = 0;
-    Renderer renderer;
+    public SpriteRenderer SpriteRender;
     float holderTime;
     // Start is called before the first frame update
     void Start()
     {
-        renderer = GetComponent<Renderer>();
+        holderTime = Time.time;
+        //renderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Time.time > holderTime + 1)
+        if(Time.time > holderTime + .1)
         {
-            if(textures.Length > currentFrame)
+            if(textures.Length -1 == currentFrame)
             {
                 currentFrame = 0;
             }
@@ -27,9 +28,10 @@ public class BorderAnimator : MonoBehaviour
             {
                 currentFrame++;
             }
-            
-            
-             renderer.material.mainTexture = textures[currentFrame];
+            holderTime = Time.time;
+
+            SpriteRender.sprite = textures[currentFrame];
+             //SpriteRender.material.mainTexture = textures[currentFrame];
         }
        
     }

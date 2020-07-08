@@ -191,7 +191,7 @@ public class AttackBehavior : MonoBehaviour
         }
         else if (timeElapsed >= 1 * timeBetweenChargePhases)
         {
-            UnityEngine.Debug.Log("2");
+
 
             CurrentPunch = PunchPhases[2];
             PunchPhase = 2;
