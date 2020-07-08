@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: ed535114aff07364dad8d379e431100a
   - enabled: 1
-    path: Assets/Scenes/JaxTestScene.unity
+    path: Assets/Scenes/Jax.unity
     guid: 02126c7cb073ed74eb38c30cb423901f
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
