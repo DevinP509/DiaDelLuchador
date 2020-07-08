@@ -108,6 +108,7 @@ public class PlayerMovementBehavior : MonoBehaviour
         {
             //UnityEngine.Debug.Log("this far");
             liveValue.lives--;
+            liveValue.hearts[(int)(liveValue.lives)].SetActive(false);
 
             invinsiblityTimer.Restart();
         }
