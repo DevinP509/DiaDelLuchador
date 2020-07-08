@@ -139,7 +139,7 @@ public class PlayerMovementBehavior : MonoBehaviour
         }
         //If the player is on ground and space key is pressed
     
-        if (IsGrounded() == true && Input.GetKey(KeyCode.Space)&& JumpCoolDown.ElapsedMilliseconds > 100)
+        if (IsGrounded() == true && Input.GetAxis("Jump") !=0 && JumpCoolDown.ElapsedMilliseconds > 100)
         {
             //set players y velocity to zero
             rigi.velocity = new Vector3(rigi.velocity.x,0,0);

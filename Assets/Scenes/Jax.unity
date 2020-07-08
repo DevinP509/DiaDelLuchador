@@ -3723,7 +3723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1000
   DecelPerSec: 10
-  fallSpeed: 100
+  fallSpeed: 1000
   bloodSpray: {fileID: 2392219789737171134}
   SpeedCap: 10
   facing: 0
@@ -3732,7 +3732,7 @@ MonoBehaviour:
   GroundLayers:
     serializedVersion: 2
     m_Bits: 1
-  jumpForce: 11.1
+  jumpForce: 22
   DisabledForPunch: 0
 --- !u!54 &1730701664
 Rigidbody:
