@@ -16,6 +16,8 @@ public class FireballLauncher : MonoBehaviour
     private Rigidbody rb;
 
     Stopwatch stopwatch = new Stopwatch();
+    public GameObject FrameOne;
+    public GameObject FrameTwo;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +49,8 @@ public class FireballLauncher : MonoBehaviour
         {
             Instantiate(fireballPrefab,transform);
 
-            
+            FrameOne.SetActive(false);
+            FrameTwo.SetActive(true);
             stopwatch.Restart();
         }
     }
@@ -57,5 +60,11 @@ public class FireballLauncher : MonoBehaviour
         firerate = FindObjectOfType<ValueKeepingBehavior>().Difficulty;
         followplayer();
         fire();
+        if(stopwatch.ElapsedMilliseconds > (10000 / (firerate *4)))
+        {
+            FrameOne.SetActive(true);
+            FrameTwo.SetActive(false);
+        }
     }
+ 
 }
