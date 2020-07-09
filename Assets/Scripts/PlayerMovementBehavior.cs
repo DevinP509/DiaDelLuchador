@@ -206,6 +206,6 @@ public class PlayerMovementBehavior : MonoBehaviour
     {
         bloodSpray.gameObject.SetActive(true);
         bloodSpray.Play();
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 }
