@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4208267518266079546}
   m_Layer: 9
   m_Name: QuetzFireball
-  m_TagString: Enemy
+  m_TagString: FireBall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,7 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7606626387643639978}
   - component: {fileID: 4295097946584089874}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sugar_Skull_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,6 +217,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FireBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 560107623625620220, guid: 25b0700a68b1b0240b79dc04cfe892d3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1341471401785667014, guid: 25b0700a68b1b0240b79dc04cfe892d3,
         type: 3}

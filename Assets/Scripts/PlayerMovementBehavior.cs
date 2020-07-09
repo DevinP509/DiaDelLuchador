@@ -32,7 +32,7 @@ public class PlayerMovementBehavior : MonoBehaviour
     public Stopwatch invinsiblityTimer = new Stopwatch();
     private float speedhold;
     private float jumpforceHold;
-
+    private float fallSpeedHold;
     //Get refrence to the valueKeepingBehavior
     [SerializeField]
     public ValueKeepingBehavior liveValue;
@@ -63,6 +63,7 @@ public class PlayerMovementBehavior : MonoBehaviour
         JumpCoolDown.Start();
         speedhold = speed;
         jumpforceHold = jumpForce;
+        fallSpeedHold = fallSpeed;
     }
 
     void Update()
@@ -104,7 +105,7 @@ public class PlayerMovementBehavior : MonoBehaviour
             die();
         }
         // UnityEngine.Debug.Log("this far");
-        if (other.gameObject.CompareTag("Enemy") && invinsiblityTimer.ElapsedMilliseconds > 3000)
+        if ((other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("FireBall")) && invinsiblityTimer.ElapsedMilliseconds > 3000)
         {
             //UnityEngine.Debug.Log("this far");
             liveValue.lives--;
@@ -147,6 +148,14 @@ public class PlayerMovementBehavior : MonoBehaviour
             rigi.AddForce(0,jumpForce,0,ForceMode.Impulse);
             //set jump cool down to prevent multi jumping
             JumpCoolDown.Restart();                  
+        }
+        if(Input.GetAxis("Jump") == 0 && fallSpeed != fallSpeedHold * 5)
+        {
+            fallSpeed = fallSpeed * 5;
+        }
+        else
+        {
+            fallSpeed = fallSpeedHold;
         }
 
         //if(IsGrounded() == true)
@@ -191,6 +200,7 @@ public class PlayerMovementBehavior : MonoBehaviour
         {
             rigi.velocity = new Vector3(-SpeedCap, rigi.velocity.y, rigi.velocity.z);
         }
+        
     }
     public void die()
     {

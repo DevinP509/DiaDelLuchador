@@ -13,6 +13,7 @@ TagManager:
   - ValueKeeper
   - DeathWall
   - PlatformSpawner
+  - FireBall
   layers:
   - Default
   - TransparentFX

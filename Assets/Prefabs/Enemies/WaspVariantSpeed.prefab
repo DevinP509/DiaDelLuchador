@@ -131,6 +131,7 @@ MonoBehaviour:
   bloodSpray: {fileID: 7342724214149693408}
   scoreKeep: {fileID: 0}
   enemeyDetector: {fileID: 0}
+  AttackAnimationPlayRange: 0
 --- !u!1 &947252825588537673
 GameObject:
   m_ObjectHideFlags: 0

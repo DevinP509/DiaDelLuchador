@@ -224,7 +224,7 @@ PrefabInstance:
     - target: {fileID: 4341287742051405793, guid: 4c91d734a43056a48a7d8fd5cb66c51a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.79
+      value: 6.53
       objectReference: {fileID: 0}
     - target: {fileID: 4341287742051405793, guid: 4c91d734a43056a48a7d8fd5cb66c51a,
         type: 3}
@@ -4147,7 +4147,7 @@ MonoBehaviour:
   GroundLayers:
     serializedVersion: 2
     m_Bits: 1
-  jumpForce: 11.3
+  jumpForce: 12.5
   DisabledForPunch: 0
 --- !u!54 &1730701664
 Rigidbody:
