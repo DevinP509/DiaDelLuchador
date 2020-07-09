@@ -15,10 +15,12 @@ public class WaspEnemyBehavior : MonoBehaviour
     public ParticleSystem bloodSpray;
     private Stopwatch DamagePreventer = new Stopwatch();
     private bool started= false;
+    private Animator animator;
     [SerializeField]
     //Refrence to the ValueKeepingBehavior
     private ValueKeepingBehavior scoreKeep;
     public EnemeyDetector enemeyDetector;
+    public float AttackAnimationPlayRange;
    
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,7 @@ public class WaspEnemyBehavior : MonoBehaviour
         collider = GetComponent<BoxCollider>();
         bloodSpray.Stop();
         timeholder = Time.timeSinceLevelLoad;
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -48,7 +51,10 @@ public class WaspEnemyBehavior : MonoBehaviour
             ChasePlayer();
         }
 
-       
+       if((player.transform.position - transform.position).magnitude > AttackAnimationPlayRange)
+        {
+            animator.SetTrigger("Attack");
+        }
 
 
         if (Health <= 0)
@@ -115,8 +121,10 @@ public class WaspEnemyBehavior : MonoBehaviour
         //add a point
         scoreKeep.score++;
         //destroy this object
-        Destroy(gameObject);
-
+        rb.useGravity = true;
+        
+        animator.SetBool("Dead", true);
+        Destroy(this);
 
     }
 
@@ -125,6 +133,7 @@ public class WaspEnemyBehavior : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PunchBox"))
         {
+            animator.SetTrigger("TakeDamage");
             //prevents the player from being damaged while punching through a enemy
             gameObject.tag = "InactiveEnemy";
             DamagePreventer.Restart();
@@ -135,7 +144,7 @@ public class WaspEnemyBehavior : MonoBehaviour
             //play bloodspray partical
             bloodSpray.Play();
             //knock enemy away
-            rb.AddForce(-rb.velocity *8 * chargeMult, ForceMode.Impulse);
+            rb.AddForce(-rb.velocity * chargeMult, ForceMode.Impulse);
           
         }
 
