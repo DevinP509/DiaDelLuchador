@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
-
+/// <summary>
+/// Makes The FireBalls Go up and delete after a period of time
+/// </summary>
 public class FireballBehavior : MonoBehaviour
 {
     Stopwatch stopwatch = new Stopwatch();

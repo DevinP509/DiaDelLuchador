@@ -3,33 +3,35 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using System;
-
+//Manages the spawning and Randomization of platforms
 public class PlatformSpawnerBehavior : MonoBehaviour
 {
     public List<GameObject> PlatformPreFabs;
-    public float SpawnTime;
     public float platformFallRate;
-    Stopwatch stopwatch = new Stopwatch();
+    
     System.Random random = new System.Random();
     public GameObject enemycounter;
     private EnemeyDetector enemeyDetector;
+
+    // the fall rate of all platforms when there are no enemys
     public float FallRateNoEnemys;
     
-    private int countHold;
+  
 
     // Start is called before the first frame update
     void Start()
     {
         enemeyDetector = enemycounter.GetComponent<EnemeyDetector>();
-        stopwatch.Start();
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-      
-        if(enemeyDetector.count != countHold || enemeyDetector.count == 0)
+        //checks if enemys 
+        if(enemeyDetector.count == 0)
         {
+            //set speed if there are no enemys
             if (enemeyDetector.count <= 0)
             {
 
@@ -39,6 +41,7 @@ public class PlatformSpawnerBehavior : MonoBehaviour
                     fallingplatforms[i].fallSpeed = FallRateNoEnemys;
                 }
             }
+            //set fall rate with enemys
             else
             {
                 PlatformFallingBehavior[] fallingplatforms = GetComponentsInChildren<PlatformFallingBehavior>();
@@ -49,7 +52,6 @@ public class PlatformSpawnerBehavior : MonoBehaviour
             }
         }
      
-        countHold = enemeyDetector.count;
     }
 
     public void SpawnOnDestroy()

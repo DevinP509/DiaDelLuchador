@@ -70,33 +70,29 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     void Update()
     {
-   
+       
        animator.SetFloat("VerticalVelocity", rigi.velocity.y);
  
 
         movmentManager();
         // movmentManager();
- 
+        //disables 
         if (DisabledForPunch)
         {
             movmentManager();
             speed = 0;
             jumpForce = 0;
         }
+
         else
-        {
+        {   
+            VelocityCorrection();
 
             speed = speedhold;
             jumpForce = jumpforceHold;
         }
-        if (!DisabledForPunch)
-        {
-            VelocityCorrection();
 
-        }
-
-
-
+        //checks if player has died
         if (liveValue.lives <= 0)
         {
             die();
@@ -106,11 +102,12 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //Kills the player if the fall off the screen
         if (other.gameObject.CompareTag("DeathWall"))
         {
             die();
         }
-        // UnityEngine.Debug.Log("this far");
+        //Checks if the player has been hit
         if ((other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("FireBall")) && invinsiblityTimer.ElapsedMilliseconds > 3000)
         {
             animator.SetTrigger("Hit");
@@ -127,6 +124,7 @@ public class PlayerMovementBehavior : MonoBehaviour
         //moveInput is equel to the Horizontal control
         moveInput = Input.GetAxisRaw("Horizontal");
 
+        //switches the players facing value
         if (moveInput > 0 && !DisabledForPunch)
         {
             
@@ -147,10 +145,11 @@ public class PlayerMovementBehavior : MonoBehaviour
             //slow the player down 10% if no key is held down
             rigi.AddForce(-rigi.velocity.x * DecelPerSec * Time.deltaTime, 0, 0,ForceMode.Impulse) ;
         }
-        //If the player is on ground and space key is pressed
-    
-        if (IsGrounded() == true && Input.GetAxis("Jump") !=0 && JumpCoolDown.ElapsedMilliseconds > 100)
+        //If the player is on ground and space key is pressed Jump
+        
+        if (IsGrounded() == true && Input.GetAxis("Jump") !=0 && JumpCoolDown.ElapsedMilliseconds > 500)
         {
+            //set up animator
             animator.SetBool("IsWalking", false);
             animator.SetTrigger("Jump");
             //set players y velocity to zero
@@ -160,6 +159,7 @@ public class PlayerMovementBehavior : MonoBehaviour
             //set jump cool down to prevent multi jumping
             JumpCoolDown.Restart();                  
         }
+        //If the Jump button is relased Increase the fall speed
         if(Input.GetAxis("Jump") == 0 && fallSpeed != fallSpeedHold * 5)
         {
             fallSpeed = fallSpeed * 5;
@@ -169,14 +169,7 @@ public class PlayerMovementBehavior : MonoBehaviour
             fallSpeed = fallSpeedHold;
         }
 
-        //if(IsGrounded() == true)
-        //{
-        //    airControlHold = 1;
-        //}
-        //else
-        //{
-        //    //airControlHold = airControl;
-        //}
+
 
        
         //How fast the player moves
@@ -215,6 +208,7 @@ public class PlayerMovementBehavior : MonoBehaviour
         }
         
     }
+    //kills player and goes to next scene
     public void die()
     {
         bloodSpray.gameObject.SetActive(true);

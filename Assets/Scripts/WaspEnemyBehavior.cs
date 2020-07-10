@@ -50,18 +50,19 @@ public class WaspEnemyBehavior : MonoBehaviour
         {
             ChasePlayer();
         }
-
+        //attack when in range of the player
        if((player.transform.position - transform.position).magnitude > AttackAnimationPlayRange)
         {
             animator.SetTrigger("Attack");
         }
 
-
+        //kill if health is zero
         if (Health <= 0)
         {
             enemeyDetector.count--;
             die();
         }
+        //prevent 
         if(DamagePreventer.ElapsedMilliseconds > 1000)
         {
             gameObject.tag = "Enemy";
@@ -87,6 +88,7 @@ public class WaspEnemyBehavior : MonoBehaviour
 
             //Return the force
             rb.AddForce(force);
+            //flip the wasp sprite
             if(rb.velocity.x >=0)
             {
                 transform.localRotation = new Quaternion(0, 180, 0, 0);

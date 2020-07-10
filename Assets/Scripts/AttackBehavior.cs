@@ -3,45 +3,53 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-
+/// <summary>
+/// Manages the Players Punch and all related game objects
+/// </summary>
 
 public class AttackBehavior : MonoBehaviour
-{
-    //used to prevent punch spamming
-    private Stopwatch PunchCoolDown = new Stopwatch();
-
-    public Animator animator;
-   
-    //used to give movment over time on punch release
-   
-    //the hitbox the punch
-    public GameObject punchBox;
-    //Activated in the player is charging a punch
-    private bool IsCharging = false;
+{   
+    //current Punch
     public int PunchPhase = 0;
+    //All the phases
     public GameObject[] PunchPhases;
+    //the current punch partical
     public GameObject CurrentPunch;
+    //time between phasese
     public float timeBetweenChargePhases;
-    //stores the current speed of the player
-    private float speedStorage;
+     //the hitbox the punch
+    public GameObject punchBox;
+    //Animator
+    public Animator animator;
+  
     //a multiplyer for the distance the punch will send you
     public float PunchPower;
+    //partical affect phases
     public GameObject[] ParticalPhases;
+    //used to prevent punch spamming
+    private Stopwatch PunchCoolDown = new Stopwatch();
+       //stores the current speed of the player
+    private float speedStorage;
+    //holder of the current Time
+    private float holderTime;
+    
+    //Activated in the player is charging a punch
+    private bool IsCharging = false;
+     //Determine if the player is going 
+    private bool goingRight;
+    private bool goingLeft;  
+    
+    private Rigidbody rb;
+    //Players Movment Script
+    private PlayerMovementBehavior MovmentScript;
 
-   
-    float holderTime;
     [SerializeField]
     
     
-    public float chargeTime;
-    
+    public float chargeTime;   
     public GameObject chargebar;
 
-    private Rigidbody rb;
-    private PlayerMovementBehavior MovmentScript;
-
-    private bool goingRight;
-    private bool goingLeft;
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -60,18 +68,13 @@ public class AttackBehavior : MonoBehaviour
         punch();
         punchMovmentManger();
         //manages the movment of punch relase
-        // punchMovmentManger();
-        //Temporary Position Allows exiting 
-        if (Input.GetKey("escape"))
-        {
-            Application.Quit();
-        }
     }
     void punch()
     {
 
-
+        //Checks Time Since Holder Time
         timeElapsed();
+        //Update Charge Phases
         if(IsCharging)
         {
             
@@ -87,10 +90,12 @@ public class AttackBehavior : MonoBehaviour
             if(IsCharging == false)
             {
                 MovmentScript.DisabledForPunch = true;
+                //set holder Time
                 holderTime = Time.time;
                 
                 //start the charge timer 
                 IsCharging = true;
+               
                 animator.SetBool("IsCharging", true);
             }                 
         }        
@@ -103,58 +108,52 @@ public class AttackBehavior : MonoBehaviour
         //get rid of punch box after a attack depending on how long it was charged
         if (punchBox.activeSelf == true && PunchCoolDown.ElapsedMilliseconds >   200  * PunchPhase)
         {
+                
                 animator.SetBool("IsPunching", false);
                 animator.speed = 1;
-                //set movment back to normal after punch
-                MovmentScript.speed = speedStorage;
+              
+                //Reenable Movment
                 MovmentScript.DisabledForPunch = false;
+                //Set Back to Normal State
                 punchBox.SetActive(false);
-                ParticalPhases[PunchPhase].GetComponent<ParticleSystem>().Play();
+                
           
         }
     }
 
     void ReleaseCharge()
     {
-        if(MovmentScript.facing == false)
-        {
-            
-            goingRight = true;
-            //rb.AddForce(new Vector3(300*chargeTime,0,0), ForceMode.Impulse);            
-        }
-        else
-        {
-
-            goingLeft = true;
-            //rb.AddForce(new Vector3(-300 * chargeTime, 0, 0),ForceMode.Impulse);            
-        }
-
-
-
         //manages the movment of punch relase
-      
+        //set charging to false
         IsCharging = false;
+        //set animator bools
         animator.SetBool("IsCharging", false);
         animator.SetBool("IsPunching", true);
+        //calculate animator speed
         animator.speed = animator.speed / PunchPhase;
+        //set chargebar back 
         CurrentPunch = PunchPhases[0];
+        //play charge Bar Animator 
         ChargeBarAnimator();
+        //CoolDownToPreventSpam
         PunchCoolDown.Restart();
+        //Play Punch Partical
         ParticalPhases[PunchPhase].GetComponent<ParticleSystem>().Play();
+        //Enable Punch Hitbox
         punchBox.SetActive(true);       
     }
     void punchMovmentManger()
     {
 
         //check if you are which way you are going then launch you in the direction based on the time you are charging
-        if(goingRight && punchBox.activeInHierarchy )
+        if(MovmentScript.facing ==false && punchBox.activeInHierarchy )
         {
             //add force going right and slightly up to prevent the player from going down
             rb.AddForce(new Vector3(PunchPower * PunchPhase, .15f, 0), ForceMode.Impulse);
             return;
 
         }
-        else if(goingLeft&& punchBox.activeInHierarchy)
+        else if(MovmentScript.facing ==true && punchBox.activeInHierarchy)
         {
             //add force going left and slightly up to prevent the player from going down
             rb.AddForce(new Vector3(-PunchPower * PunchPhase, .15f, 0), ForceMode.Impulse);
@@ -165,10 +164,10 @@ public class AttackBehavior : MonoBehaviour
         //the punch movment is complete
         goingLeft = false;
         goingRight = false;
-        //stop the movement timer
+     
        
     }
- 
+    //Animates The Charge Bar
     void ChargeBarAnimator()
     {
         foreach(GameObject i in PunchPhases)
@@ -180,6 +179,7 @@ public class AttackBehavior : MonoBehaviour
         }
         CurrentPunch.SetActive(true);
     }
+    //Time Since Holder Time
     void timeElapsed()
     {
         float timeElapsed = Time.time - holderTime;
@@ -208,47 +208,6 @@ public class AttackBehavior : MonoBehaviour
             PunchPhase = 0;
         }
     }
-     
-    //*Old Implmentation 
-    //Doesnt Work
-    //void ChargePhaseManager()
-    //{
-    //    //set the players speed down while charging a punch
-    //    MovmentScript.speed = speedStorage/2;
-    //    //store charge time in seconds
-    //    chargeTime = (ChargeTimer.ElapsedMilliseconds / 1000);
-    //    //raises the charge above the minimum charge 
-        
-    //    if (chargeTime >0)
-    //    {
-            
-    //        if(chargeTime > 1 && chargeTime < 2)
-    //        {
-    //            UnityEngine.Debug.Log("2");
-                
-    //            CurrentPunch = PunchPhases[2];
-    //            PunchPhase = 2;
-
-    //        }
-    //        else if(chargeTime >2 * timeBetweenChargePhases )
-    //        {
-
-    //            CurrentPunch = PunchPhases[3];
-    //            PunchPhase = 3;
-    //        }
-    //        else
-    //        {
-    //            CurrentPunch = PunchPhases[1];
-    //            PunchPhase = 1;
-    //        }
-           
-    //    }
-    //    else
-    //    {
-    //        CurrentPunch = PunchPhases[0];
-    //        PunchPhase = 0;
-    //    }
-         
-    //}  
+   
     
 }

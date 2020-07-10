@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Freezes Game for a Few Seconds and Displays CountDown
+/// </summary>
 public class GameStartScript : MonoBehaviour
 {
     float holderTime;

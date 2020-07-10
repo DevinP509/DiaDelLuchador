@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
-
+/// <summary>
+/// Controls the Falling OF each Platformset
+/// </summary>
 public class PlatformFallingBehavior : MonoBehaviour
 {
     public float fallSpeed;
@@ -13,8 +15,7 @@ public class PlatformFallingBehavior : MonoBehaviour
     {
         platformSpawner = GameObject.FindGameObjectWithTag("PlatformSpawner");
     }
-
-
+    //Destory Platforms on Contact with platform Destroyer
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "PlatformDestroyer")

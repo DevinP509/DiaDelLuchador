@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
-
+/// <summary>
+/// Follows the player and fires a fireball based off how much time has passed and the current difficulty 
+/// </summary>
 public class FireballLauncher : MonoBehaviour
 {
     public GameObject player;
@@ -12,18 +14,23 @@ public class FireballLauncher : MonoBehaviour
     public int speed;
 
     public float firerate;
+    private ValueKeepingBehavior valueKeeping;
 
     private Rigidbody rb;
-
-    Stopwatch stopwatch = new Stopwatch();
+    //cooldown
+    private Stopwatch stopwatch = new Stopwatch();
+    
+    //basic animation 
     public GameObject FrameOne;
     public GameObject FrameTwo;
     // Start is called before the first frame update
     void Start()
     {
+        valueKeeping = FindObjectOfType<ValueKeepingBehavior>();
         rb = GetComponent<Rigidbody>();
         stopwatch.Start();
     }
+    //follow the player 
     void followplayer()
     {
 
@@ -45,6 +52,7 @@ public class FireballLauncher : MonoBehaviour
     }
     private void fire()
     {
+        //check time since 
         if (stopwatch.ElapsedMilliseconds > (10000 / firerate))
         {
             Instantiate(fireballPrefab,transform);
@@ -57,7 +65,7 @@ public class FireballLauncher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        firerate = FindObjectOfType<ValueKeepingBehavior>().Difficulty;
+        firerate = valueKeeping.Difficulty;
         followplayer();
         fire();
         if(stopwatch.ElapsedMilliseconds > (10000 / (firerate *4)))
