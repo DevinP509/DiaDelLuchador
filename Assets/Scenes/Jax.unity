@@ -5995,6 +5995,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1520914984}
     m_Modifications:
+    - target: {fileID: 3659058589188284657, guid: be9e8318cf63598469b2240308accac5,
+        type: 3}
+      propertyPath: LightsModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3659058589188284657, guid: be9e8318cf63598469b2240308accac5,
+        type: 3}
+      propertyPath: TrailModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3904617292031363666, guid: be9e8318cf63598469b2240308accac5,
         type: 3}
       propertyPath: m_Enabled
