@@ -72,10 +72,7 @@ public class PlayerMovementBehavior : MonoBehaviour
     {
    
        animator.SetFloat("VerticalVelocity", rigi.velocity.y);
-      if(IsGrounded()== false)
-      {
-            animator.SetBool("IsWalking", false);
-      }
+ 
 
         movmentManager();
         // movmentManager();
@@ -132,21 +129,21 @@ public class PlayerMovementBehavior : MonoBehaviour
 
         if (moveInput > 0 && !DisabledForPunch)
         {
-            animator.SetBool("IsWalking", true);
+            
             facing = false;
             //punchBox.transform.localPosition = new Vector3(1, 0, 0);
             transform.localRotation= new Quaternion(0,0,0,0) ;
         }
         else if (moveInput < 0 && ! DisabledForPunch )
         {
-            animator.SetBool("IsWalking", true);
+            
             facing = true;
             //punchBox.transform.localPosition = new Vector3(-1, 0, 0);
             transform.localRotation = new Quaternion(0, 180, 0, 0);
         }
         else
         {
-            animator.SetBool("IsWalking", false);
+           
             //slow the player down 10% if no key is held down
             rigi.AddForce(-rigi.velocity.x * DecelPerSec * Time.deltaTime, 0, 0,ForceMode.Impulse) ;
         }
@@ -185,11 +182,13 @@ public class PlayerMovementBehavior : MonoBehaviour
         //How fast the player moves
         if(IsGrounded())
         {
+            animator.SetBool("IsWalking", true);
             //rigi.velocity = new Vector3(moveInput * speed * airControlHold, 0, 0);
             rigi.AddForce(moveInput * speed * Time.deltaTime,-fallSpeed * Time.deltaTime,0);
         }
         else
         {
+            animator.SetBool("IsWalking", false);
             rigi.AddForce(((moveInput * speed)*.75f )* Time.deltaTime,-fallSpeed* Time.deltaTime , 0);
         }
        
