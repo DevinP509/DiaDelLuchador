@@ -8,6 +8,7 @@ public class WaspEnemyBehavior : MonoBehaviour
     public int speed;
     float timeholder;
     public float Health;
+    public float AtkDistance;
     private Camera GameCamera;
     public Rigidbody rb;
     private Renderer rendererer;
@@ -19,6 +20,9 @@ public class WaspEnemyBehavior : MonoBehaviour
     //Refrence to the ValueKeepingBehavior
     private ValueKeepingBehavior scoreKeep;
     public EnemeyDetector enemeyDetector;
+
+    public Animator animator;
+    public float animSpeed = 0.0f;
    
     // Start is called before the first frame update
     void Start()
@@ -31,11 +35,15 @@ public class WaspEnemyBehavior : MonoBehaviour
         collider = GetComponent<BoxCollider>();
         bloodSpray.Stop();
         timeholder = Time.timeSinceLevelLoad;
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        animator.SetFloat("Speed", animSpeed);
+
         if (started == false)
         {
             if (timeholder < Time.timeSinceLevelLoad)
@@ -47,12 +55,10 @@ public class WaspEnemyBehavior : MonoBehaviour
         {
             ChasePlayer();
         }
-
-       
-
-
+      
         if (Health <= 0)
         {
+            animator.SetBool("Death", true);
             enemeyDetector.count--;
             die();
         }
@@ -60,7 +66,13 @@ public class WaspEnemyBehavior : MonoBehaviour
         {
             gameObject.tag = "Enemy";
         }
+
+        if((player.transform.position - transform.position).magnitude > AtkDistance)
+        {
+            animator.SetTrigger("Attack");
+        }
     }
+
     private void ChasePlayer()
     {
         if (CheckIfOnScreen() == true)
@@ -92,8 +104,8 @@ public class WaspEnemyBehavior : MonoBehaviour
                
             }
         }
-
     }
+
     //check if currently on the screen
     private bool CheckIfOnScreen()
     {
@@ -106,8 +118,6 @@ public class WaspEnemyBehavior : MonoBehaviour
             return false;
     }
 
-
-
     private void die()
     {
         //play blood spray 
@@ -116,11 +126,8 @@ public class WaspEnemyBehavior : MonoBehaviour
         scoreKeep.score++;
         //destroy this object
         Destroy(gameObject);
-
-
     }
 
- 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("PunchBox"))
@@ -138,7 +145,5 @@ public class WaspEnemyBehavior : MonoBehaviour
             rb.AddForce(-rb.velocity *8 * chargeMult, ForceMode.Impulse);
           
         }
-
     }
-
 }

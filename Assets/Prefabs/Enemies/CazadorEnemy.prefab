@@ -4881,10 +4881,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   Health: 2
+  AtkDistance: 2
   rb: {fileID: 4423734197106013468}
   bloodSpray: {fileID: 4423734197019674459}
   scoreKeep: {fileID: 0}
   enemeyDetector: {fileID: 0}
+  animator: {fileID: 0}
+  animSpeed: 0
 --- !u!1001 &5654051703349397607
 PrefabInstance:
   m_ObjectHideFlags: 0

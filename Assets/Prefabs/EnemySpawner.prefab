@@ -40,11 +40,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3564120034820653548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a994d9b099add594ea1f5a0dd530fd3a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ef0633eafc6c0f40805b02347b7f25f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EnemySelection:
   - {fileID: 4423734197106013670, guid: a65f2dee5e8304c49b9d4cf00490206c, type: 3}
   - {fileID: 932760923394380183, guid: 4c91d734a43056a48a7d8fd5cb66c51a, type: 3}
   - {fileID: 8898842894948895806, guid: a75c3509ba36a284eb0a5aa22a129f4f, type: 3}
-  SpawnChance: 70
+  SpawnChance: 50

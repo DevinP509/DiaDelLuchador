@@ -127,10 +127,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   Health: 1
+  AtkDistance: 2
   rb: {fileID: 4117564244204676292}
   bloodSpray: {fileID: 7342724214149693408}
   scoreKeep: {fileID: 0}
   enemeyDetector: {fileID: 0}
+  animator: {fileID: 0}
+  animSpeed: 0
 --- !u!1 &947252825588537673
 GameObject:
   m_ObjectHideFlags: 0
