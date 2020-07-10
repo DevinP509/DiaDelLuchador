@@ -33,6 +33,8 @@ public class PlayerMovementBehavior : MonoBehaviour
     private float speedhold;
     private float jumpforceHold;
     private float fallSpeedHold;
+    public Animator animator;
+    private bool hasLanded;
     //Get refrence to the valueKeepingBehavior
     [SerializeField]
     public ValueKeepingBehavior liveValue;
@@ -68,6 +70,12 @@ public class PlayerMovementBehavior : MonoBehaviour
 
     void Update()
     {
+   
+       animator.SetFloat("VerticalVelocity", rigi.velocity.y);
+      if(IsGrounded()== false)
+      {
+            animator.SetBool("IsWalking", false);
+      }
 
         movmentManager();
         // movmentManager();
@@ -95,6 +103,7 @@ public class PlayerMovementBehavior : MonoBehaviour
         if (liveValue.lives <= 0)
         {
             die();
+            animator.SetTrigger("Death");
         }
     }
 
@@ -107,6 +116,7 @@ public class PlayerMovementBehavior : MonoBehaviour
         // UnityEngine.Debug.Log("this far");
         if ((other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("FireBall")) && invinsiblityTimer.ElapsedMilliseconds > 3000)
         {
+            animator.SetTrigger("Hit");
             //UnityEngine.Debug.Log("this far");
             liveValue.lives--;
             liveValue.hearts[(int)(liveValue.lives)].SetActive(false);
@@ -122,19 +132,21 @@ public class PlayerMovementBehavior : MonoBehaviour
 
         if (moveInput > 0 && !DisabledForPunch)
         {
+            animator.SetBool("IsWalking", true);
             facing = false;
             //punchBox.transform.localPosition = new Vector3(1, 0, 0);
             transform.localRotation= new Quaternion(0,0,0,0) ;
         }
-        else if (moveInput < 0 && ! DisabledForPunch)
+        else if (moveInput < 0 && ! DisabledForPunch )
         {
+            animator.SetBool("IsWalking", true);
             facing = true;
             //punchBox.transform.localPosition = new Vector3(-1, 0, 0);
             transform.localRotation = new Quaternion(0, 180, 0, 0);
         }
         else
         {
-            
+            animator.SetBool("IsWalking", false);
             //slow the player down 10% if no key is held down
             rigi.AddForce(-rigi.velocity.x * DecelPerSec * Time.deltaTime, 0, 0,ForceMode.Impulse) ;
         }
@@ -142,6 +154,8 @@ public class PlayerMovementBehavior : MonoBehaviour
     
         if (IsGrounded() == true && Input.GetAxis("Jump") !=0 && JumpCoolDown.ElapsedMilliseconds > 100)
         {
+            animator.SetBool("IsWalking", false);
+            animator.SetTrigger("Jump");
             //set players y velocity to zero
             rigi.velocity = new Vector3(rigi.velocity.x,0,0);
             //add jumpforce

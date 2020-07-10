@@ -231,6 +231,30 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1763466357}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &342215932 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8898842894948895806, guid: a75c3509ba36a284eb0a5aa22a129f4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 180784448}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &342215939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342215932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe0f3ea4291ed14f8d5abeb2c2a08c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
+  lives: 3
+  scoreValue: {fileID: 0}
+  livesValue: {fileID: 0}
+  Difficulty: 0
+  hearts: []
 --- !u!1 &353841195
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,6 +1432,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc3656b1874ce2a4da938e31198505e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1793904057 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3904617291337115347, guid: be9e8318cf63598469b2240308accac5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2087185216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1840037573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1553,10 +1583,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3904617291337115347, guid: be9e8318cf63598469b2240308accac5,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3904617292031363667, guid: be9e8318cf63598469b2240308accac5,
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3904617292031363670, guid: be9e8318cf63598469b2240308accac5,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1793904057}
+    - target: {fileID: 3904617292031363670, guid: be9e8318cf63598469b2240308accac5,
+        type: 3}
+      propertyPath: liveValue
+      value: 
+      objectReference: {fileID: 342215939}
+    - target: {fileID: 3904617292031363670, guid: be9e8318cf63598469b2240308accac5,
+        type: 3}
+      propertyPath: jumpForce
+      value: 13.1
       objectReference: {fileID: 0}
     - target: {fileID: 3904617292031363671, guid: be9e8318cf63598469b2240308accac5,
         type: 3}
