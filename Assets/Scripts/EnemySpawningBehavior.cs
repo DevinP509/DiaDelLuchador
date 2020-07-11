@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Controls Enemy randomization
+/// </summary>
 public class EnemySpawningBehavior : MonoBehaviour
 {
      public List<GameObject> EnemySelection;

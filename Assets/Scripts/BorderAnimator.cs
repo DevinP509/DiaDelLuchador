@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Cycles Through Textures to animate the borders of the screen
+/// </summary>
 public class BorderAnimator : MonoBehaviour
 {
+ 
     public Sprite[] textures;
     int currentFrame = 0;
     public SpriteRenderer SpriteRender;

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
-
+/// <summary>
+///  for FireBall Auto Delete 
+/// </summary>
 public class TurretFireballBehavior : MonoBehaviour
 {
     Stopwatch stopwatch = new Stopwatch();

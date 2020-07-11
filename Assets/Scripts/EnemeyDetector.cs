@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// Detect How Many Enemys are currently on screen
+/// </summary>
 public class EnemeyDetector : MonoBehaviour
 { 
     public int count;

@@ -53,7 +53,7 @@ public class PlatformSpawnerBehavior : MonoBehaviour
         }
      
     }
-
+    //Spawn New platform after one is destroyed
     public void SpawnOnDestroy()
     {
         int number = random.Next(0, PlatformPreFabs.Count);
