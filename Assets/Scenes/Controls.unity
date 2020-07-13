@@ -332,8 +332,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   lives: 1e+32
-  scoreValue: {fileID: 0}
-  livesValue: {fileID: 0}
+  scoreValue: {fileID: 1483826045}
+  livesValue: {fileID: 1483826045}
   Difficulty: 0
   hearts: []
 --- !u!1 &353841195
